@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>场馆-Rest&Rent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{css/magnific-popup.css}">
+
+
+    <link rel="stylesheet" th:href="@{css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{css/jquery.timepicker.css}">
+
+    <link rel="stylesheet" th:href="@{css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.easing.1.3.js}"></script>
+    <script th:src="@{/js/jquery.waypoints.min.js}"></script>
+    <script th:src="@{/js/jquery.stellar.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/js/aos.js}"></script>
+    <script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+    <script th:src="@{/js/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/js/scrollax.min.js}"></script>
+    <script th:src="@{/js/google-map.js}"></script>
+    <script th:src="@{/js/jquery.twbsPagination.js}"></script>
+
+</head>
+<body>
+<div th:include="layout/header :: header(user=${session.user},flag=${session.user}!=null,page='venue_list')"></div>
+<div class="hero-wrap js-fullheight" th:styleappend="'background:url(' + @{/imgs/bg_2.jpg} + ')0% 0% / 100% 130%;'">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a th:href="@{index}">主页</a></span> <span>空间</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">共享空间</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <ul class="list-group pt-2 px-3" id="content">
+        </ul>
+        <div class="d-flex justify-content-center mt-2" id="pagination-demo"></div>
+    </div>
+</section>
+
+<div th:include="layout/footer :: Footer"></div>
+<script type="text/javascript">
+     // $(document).ready(function () {
+     //     getPage(1);
+     // });
+
+    $('#pagination-demo').twbsPagination({
+        totalPages: [[${total}]],
+        visiblePages: 5,
+        onPageClick: function (event, page) {
+            getPage(page);
+        }
+    });
+
+    function getPage(page){
+        $.ajax({//根据page去后台加载数据
+            url : "/venuelist/getVenueList",
+            type : "get",
+            dataType : "json",
+            data : {"page" : page},
+            success : function(data) {
+                appendHtml(data.content);//处理数据
+                console.log(data);
+            }
+        });
+    }
+    function appendHtml(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
+        let tableShow = '';
+        for (let i = 0; i < list.length; i++) {
+            tableShow += '<li class="list-group-item px-3 pt-3 border-0">\n' +
+                '                <div class="media border-bottom border-gray pb-3">\n' +
+                '                    <div class="media-left mr-3">\n';
+            if(list[i].picture == '')
+                tableShow += '<img src="venue.jpg" alt="" height="100px" width="100px">\n';
+            else
+                tableShow += '<img src="'+list[i].picture+'" alt="" height="100px" width="100px">\n';
+            tableShow += '</div>\n' +
+                '                    <div class="media-body">\n' +
+                '                        <h5 class="media-heading font-weight-bold pb-3">\n' +
+                '                            <a href="/venue?venueID='+list[i].venueID+'" target="_blank">'+list[i].venueName+'</a>\n' +
+                '                        </h5>\n' +
+                '                        <h6 class="d-flex">\n' +
+                '                            <p class="font-weight-bold mb-0">场馆位置：</p>\n' +
+                '                            <p class="mb-0">'+list[i].address+'</p>\n' +
+                '                        </h6>\n' +
+                '                        <h6 class="d-flex">\n' +
+                '                            <p class="font-weight-bold mb-0">开放时间：</p>\n' +
+                '                            <p class="mb-0">'+list[i].open_time+' ~ '+list[i].close_time+'</p>\n' +
+                '                        </h6>\n' +
+                '                        <h6 class="d-flex">\n' +
+                '                            <p class="font-weight-bold mb-0">租金：</p>\n' +
+                '                            <p class="mb-0">￥'+list[i].price+'/h</p>\n' +
+                '                        </h6>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '            </li>\n';
+        }
+        $('#content').html(tableShow);
+    }
+
+</script>
+<script th:src="@{/js/main.js}"></script>
+
+
+</body>
+</html>
+
+</html>

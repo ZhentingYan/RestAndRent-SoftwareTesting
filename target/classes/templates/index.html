@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页-Rest&Rent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{css/open-iconic-bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{css/animate.css}">
+
+    <link rel="stylesheet" th:href="@{css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{css/owl.theme.default.min.css}">
+    <link rel="stylesheet" th:href="@{css/magnific-popup.css}">
+
+
+    <link rel="stylesheet" th:href="@{css/ionicons.min.css}">
+
+    <link rel="stylesheet" th:href="@{css/bootstrap-datepicker.css}">
+    <link rel="stylesheet" th:href="@{css/jquery.timepicker.css}">
+
+    <link rel="stylesheet" th:href="@{css/flaticon.css}">
+    <link rel="stylesheet" th:href="@{css/icomoon.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+
+</head>
+<body>
+
+<div th:include="layout/header :: header(user=${session.user},flag=${session.user}!=null,page='index')"></div>
+
+<div class="hero-wrap js-fullheight" th:styleappend="'background:url(' + @{/imgs/bg_1.jpg} + ')0% 0% / 100% 130%;'">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start;" data-scrollax-parent="true">
+            <div class="col-md-7  pl-3 ftco-animate mb-5 text-center text-md-left" style="background: rgba(0, 0, 0, 0.2); border-radius: 10px;" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4 pl-3" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="color:brown">Rest&Rent</h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" class="pl-3" style="color:white">我们提供简洁、高效的平台，使您的闲置空间快速转变为到手的金钱。</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-9 heading-section text-center ftco-animate fadeInUp ftco-animated">
+                <h2 class="mb-4">最新闲置空间</h2>
+                <div class="card-body text-right pt-0 pb-2">
+                    <h6 class="m-0"><a th:href="@{venue_list}" target="_blank"><span class="badge">MORE</span></a></h6>
+                </div>
+            </div>
+            <ul class="list-group col-md-9">
+                <li class="list-group-item px-3 pt-3 border-0" th:each="venue : ${venue_list}">
+                    <div class="media border-bottom border-gray pb-3">
+                        <div class="media-left mr-3">
+                            <img th:src="${venue.picture} == ''?'venue.jpg':${venue.picture}"
+                                 alt="" height="100px" width="100px">
+                        </div>
+                        <div class="media-body">
+                            <h5 class="media-heading font-weight-bold pb-3">
+                                <a th:href="@{'venue?venueID='+${venue.venueID}}" target="_blank" th:text="${venue.venueName}">场馆A</a>
+                            </h5>
+                            <h6 class="d-flex">
+                                <p class="font-weight-bold mb-0">场馆位置：</p>
+                                <p class="mb-0" th:text="${venue.address}">上海市中心人民广场的南侧黄浦区人民大道201号</p>
+                            </h6>
+                            <h6 class="d-flex">
+                                <p class="font-weight-bold mb-0">开放时间：</p>
+                                <p class="mb-0" th:text="${venue.open_time}+'~'+${venue.close_time}">09:00 a.m. ~ 17:00 p.m.</p>
+                            </h6>
+                            <h6 class="d-flex">
+                                <p class="font-weight-bold mb-0">租金：</p>
+                                <p class="mb-0" th:text="'￥'+${venue.price}+'/h'">￥300/h</p>
+                            </h6>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section class="ftco-section services-section bg-light">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="glyphicon glyphicon-road	"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">团队理念</h3>
+                        <p>打造一个共享空间分享平台，让人们畅享生活，而不仅仅是生存。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="glyphicon glyphicon-list-alt	"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">服务项目</h3>
+                        <p>我们致力于提供最优质的商务服务，助力企业的飞速发展，让您的租赁无后顾之忧。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="glyphicon glyphicon-cutlery"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">我们的中心</h3>
+                        <p>便捷的交通节省了时间成本，选址于各类特色楼宇，毗邻多个时尚商圈，让你工作后的休闲时光也变得无限精彩。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-self-stretch ftco-animate fadeInUp ftco-animated">
+                <div class="media block-6 services d-block">
+                    <div class="icon"><span class="glyphicon glyphicon-globe"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading mb-3">随处可用</h3>
+                        <p>我们的共享空间资源遍布各地，您不用担心空间资源问题。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-9 heading-section text-center ftco-animate fadeInUp ftco-animated">
+                <h2 class="mb-4">新闻速递</h2>
+                <div class="card-body text-right pt-0 pb-2">
+                    <h6 class="m-0"><a th:href="@{news_list}" target="_blank"><span class="badge">MORE</span></a></h6>
+                </div>
+            </div>
+            <ul class="list-group col-md-9">
+                <li class="list-group-item border-0 px-3 py-2" th:each="news : ${news_list}">
+                    <div class="row mx-0 pb-2 border-bottom border-gray">
+                        <a class="ml-1" th:href="@{'news?newsID='+${news.newsID}}" target="_blank" th:text="${news.title}">2019年12月24日场馆暂时关闭通知</a>
+                        <div class="ml-auto">
+                            <span class="badge badge-secondary" th:text="${#temporals.format(news.time, 'yyyy-MM-dd HH:mm:ss')}">2019-12-10</span>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</section>
+<section class="ftco-section ftco-counter img" id="section-counter" style="background-position: 50% -505px;" data-stellar-background-ratio="0.5" th:styleappend="'background:url(' + @{/imgs/bg_1.jpg} + ');'">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate fadeInUp ftco-animated">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" th:attr="data-number=${user_num}" th:text="${user_num}"></strong>
+                                <span>注册用户</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate fadeInUp ftco-animated">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" th:attr="data-number=${venue_num}" th:text="${venue_num}"></strong>
+                                <span>空闲空间</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center counter-wrap ftco-animate fadeInUp ftco-animated">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <strong class="number" th:attr="data-number=${order_num}" th:text="${order_num}"></strong>
+                                <span>成交订单</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-9 heading-section text-center ftco-animate fadeInUp ftco-animated">
+                <h2 class="mb-4">用户留言</h2>
+                <div class="card-body text-right pt-0 pb-2">
+                    <h6 class="m-0"><a th:href="@{message_list}" target="_blank"><span class="badge">MORE</span></a></h6>
+                </div>
+            </div>
+            <ul class="list-group col-md-9">
+                <li class="list-group-item px-3 border-0" th:each="message : ${message_list}">
+                    <div class="media border-bottom border-gray">
+                        <img class="mr-2" th:src="${message.picture} == ''?'default.jpg':${message.picture}"
+                             alt="" height="32px" width="32px">
+                        <div class="media-body pb-3 mb-0 small">
+                            <strong class="d-block" th:text="'@'+${message.userName}">@username</strong>
+                            <p  th:text="${message.content}">
+                            </p>
+                            <small class="float-right" th:text="${#temporals.format(message.time, 'yyyy-MM-dd HH:mm:ss')}">2019-12-10</small>
+                        </div>
+
+                    </div>
+                </li>
+
+            </ul>
+                <div id="user" th:text="${session.user}" hidden></div>
+
+        </div>
+    </div>
+</section>
+
+<div th:include="layout/footer :: Footer"></div>
+<script type="text/javascript">
+    function message_list(){
+        let flag = $("#user").html() == '';
+        if(flag){
+            alert("请登录！");
+            window.location.href = '/login';
+        }
+        else{
+            window.location.href = '/message_list';
+        }
+    }
+</script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/aos.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

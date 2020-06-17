@@ -46,7 +46,6 @@ public class MessageController {
             model.addAttribute("user_total",messageService.findByUser(loginUser.getUserID(),user_message_pageable).getTotalPages());
 
 
-
         return "message_list";
     }
 
@@ -73,7 +72,6 @@ public class MessageController {
             throw new LoginException("请登录！");
         }
         User loginUser=(User)user;
-
             Pageable message_pageable = PageRequest.of(page - 1, 5, Sort.by("time").descending());
             List<Message> user_messages = messageService.findByUser(loginUser.getUserID(), message_pageable).getContent();
             return messageVoService.returnVo(user_messages);

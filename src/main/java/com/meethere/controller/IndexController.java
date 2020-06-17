@@ -2,6 +2,7 @@ package com.meethere.controller;
 
 import com.meethere.entity.*;
 import com.meethere.entity.vo.MessageVo;
+import com.meethere.exception.LoginException;
 import com.meethere.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -55,7 +57,16 @@ public class IndexController {
 
 
     @GetMapping("/admin_index")
-    public String admin_index(Model model){
+    public String admin_index(Model model,HttpServletRequest request){
+        Object user=request.getSession().getAttribute("user");
+        if(user==null){
+            throw new LoginException("请登录！");
+        }
+        User loginUser=(User)user;
+
+        if(loginUser.getIsadmin()==0){
+            throw new LoginException("权限不足，普通用户不可进入后台管理界面！");
+        }
         return "admin/admin_index";
     }
 

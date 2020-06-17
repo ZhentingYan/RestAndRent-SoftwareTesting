@@ -3,6 +3,7 @@ package com.meethere.IntegrationTest.Controller;
 import com.meethere.MeetHereApplication;
 import com.meethere.entity.Message;
 import com.meethere.entity.News;
+import com.meethere.entity.User;
 import com.meethere.entity.Venue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,12 +20,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.ModelAndViewAssert.assertModelAttributeAvailable;
@@ -39,6 +42,39 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class IndexApiTest {
     @Autowired
     private MockMvc mockMvc;
+    @Test
+    public void IT_TD_008_002_001_001() throws Exception{
+        int id=1;
+        String userID="user";
+        String password="password";
+        String email="222@qq.com";
+        String phone="12345678901";
+        int isadmin=1;
+        String user_name="nickname";
+        String picture="picture";
+        User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
+        ResultActions perform=mockMvc.perform(get("/admin_index").sessionAttr("user",user));
+        perform.andExpect(status().isOk()).andDo(print());
+    }
+    @Test
+    public void IT_TD_008_002_002_001() throws Exception{
+        int id=1;
+        String userID="user";
+        String password="password";
+        String email="222@qq.com";
+        String phone="12345678901";
+        int isadmin=0;
+        String user_name="nickname";
+        String picture="picture";
+        User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/admin_index").sessionAttr("user",user)),"权限不足，普通用户不可进入后台管理界面！");
+    }
+    @Test
+    public void IT_TD_008_002_003_001() throws Exception{
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/admin_index")),"请登录！");
+    }
+    //ResultActions perform=mockMvc.perform(get("/admin_index"));
+    //perform.andExpect(status().isOk()).andDo(print());
     @Test
     public void return_index_html() throws Exception {
         ResultActions perform=mockMvc.perform(get("/index"));

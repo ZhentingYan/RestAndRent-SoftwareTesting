@@ -58,14 +58,14 @@ public class IndexController {
 
     @GetMapping("/admin_index")
     public String admin_index(Model model,HttpServletRequest request){
-        Object user=request.getSession().getAttribute("user");
+        Object user=request.getSession().getAttribute("admin");
         if(user==null){
             throw new LoginException("请登录！");
         }
         User loginUser=(User)user;
 
         if(loginUser.getIsadmin()==0){
-            throw new LoginException("权限不足，普通用户不可进入后台管理界面！");
+            throw new RuntimeException("权限不足，普通用户不可进入后台管理界面！");
         }
         return "admin/admin_index";
     }

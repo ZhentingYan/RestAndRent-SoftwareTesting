@@ -53,7 +53,7 @@ public class IndexApiTest {
         String user_name="nickname";
         String picture="picture";
         User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
-        ResultActions perform=mockMvc.perform(get("/admin_index").sessionAttr("user",user));
+        ResultActions perform=mockMvc.perform(get("/admin_index").sessionAttr("admin",user));
         perform.andExpect(status().isOk()).andDo(print());
     }
     @Test
@@ -76,7 +76,7 @@ public class IndexApiTest {
     //ResultActions perform=mockMvc.perform(get("/admin_index"));
     //perform.andExpect(status().isOk()).andDo(print());
     @Test
-    public void return_index_html() throws Exception {
+    public void IT_TD_008_001_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/index"));
         perform.andExpect(status().isOk());
 
@@ -85,13 +85,8 @@ public class IndexApiTest {
         assertAll("",()-> assertModelAttributeAvailable(mv,"user"),
                 ()-> assertModelAttributeAvailable(mv,"news_list"),
                 ()->assertModelAttributeAvailable(mv,"venue_list"),
-                ()->assertModelAttributeAvailable(mv,"message_lis"));
+                ()->assertModelAttributeAvailable(mv,"message_list"));
 
     }
 
-    @Test
-    public void return_admin_index_html() throws Exception {
-        ResultActions perform=mockMvc.perform(get("/admin_index"));
-        perform.andExpect(status().isOk()).andDo(print());
-    }
 }

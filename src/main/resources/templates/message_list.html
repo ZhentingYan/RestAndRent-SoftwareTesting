@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>留言板-Rest&Rent</title>
+    <title>故事板-Rest&Rent</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
@@ -51,8 +51,8 @@
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a th:href="@{index}">主页</a></span> <span>留言</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">留言板</h1>
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a th:href="@{index}">主页</a></span> <span>故事</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">故事板</h1>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
 <!--                <input type="text" class="form-control" id="userID" name="userID" hidden  required te th:value="${session.user.userID}"></input>-->
             </div>
             <div class="form-group">
-                <label for="content" class="font-weight-bold sr-only">发布留言</label>
+                <label for="content" class="font-weight-bold sr-only">发布故事</label>
                 <textarea class="form-control" id="content" name="content" rows="3" placeholder="有什么想和大家分享的？" required></textarea>
                 <p class="text-muted my-0" id="word">500</p>
             </div>
@@ -79,10 +79,10 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#tab1" data-toggle="tab">全部留言</a>
+                    <a class="nav-link active" href="#tab1" data-toggle="tab">全部故事</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#tab2" data-toggle="tab">我的留言</a>
+                    <a class="nav-link" href="#tab2" data-toggle="tab">我的故事</a>
                 </li>
             </ul>
         </div>
@@ -254,7 +254,7 @@
                 '                                        <input type="text" name="messageID" class="form-control" id="messageID'+i+'" required hidden th:value="'+list[i].messageID+'">' +
                 '                                    </div>\n' +
                 '                                    <div class="form-group">\n' +
-                '                                        <label for="myMessage'+i+'" class="font-weight-bold sr-only">发布留言</label>\n' +
+                '                                        <label for="myMessage'+i+'" class="font-weight-bold sr-only">发布故事</label>\n' +
                 '                                        <textarea class="form-control" name="content" id="myMessage'+i+'" rows="3" required onkeyup="wordsLimit('+i+')">'+list[i].content+'</textarea>\n' +
                 '                                        <p class="text-muted my-0" id="word'+i+'">500</p>' +
                 '                                    </div>\n' +
@@ -276,7 +276,7 @@
         $('#content2').html(tableShow);
     }
     function del(messageID,btn) {
-        if (!confirm("确定删除该留言？")) {
+        if (!confirm("确定删除该故事？")) {
             return;
         }
 
@@ -299,10 +299,10 @@
     }
     function modify(messageID,i,btn) {
         if($("#myMessage"+i).val().length <=0){
-            alert("留言不能为空！");
+            alert("故事不能为空！");
             return;
         }
-        if (!confirm("确定修改该留言？")) {
+        if (!confirm("确定修改该故事？")) {
             return;
         }
 

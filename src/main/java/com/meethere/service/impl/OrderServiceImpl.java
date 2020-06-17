@@ -50,7 +50,6 @@ public class OrderServiceImpl implements OrderService {
         order.setStartTime(startTime);
         order.setUserID(userID);
         order.setTotal(hours* venue.getPrice());
-
         orderDao.save(order);
     }
 

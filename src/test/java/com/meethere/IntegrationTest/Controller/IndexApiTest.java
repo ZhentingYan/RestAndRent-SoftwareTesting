@@ -49,7 +49,7 @@ public class IndexApiTest {
         assertAll("",()-> assertModelAttributeAvailable(mv,"user"),
                 ()-> assertModelAttributeAvailable(mv,"news_list"),
                 ()->assertModelAttributeAvailable(mv,"venue_list"),
-                ()->assertModelAttributeAvailable(mv,"message_list"));
+                ()->assertModelAttributeAvailable(mv,"message_lis"));
 
     }
 

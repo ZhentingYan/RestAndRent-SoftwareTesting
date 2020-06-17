@@ -32,7 +32,7 @@
                         <a class="nav-link" th:href="@{news_list}">新闻</a>
                     </li>
                     <li class="nav-item" th:classappend="${page}=='message_list'?'active':''">
-                        <a class="nav-link loginfirst" href="#" th:onclick="'javascript:message_list('+${flag}+')'">留言板</a>
+                        <a class="nav-link loginfirst" href="#" th:onclick="'javascript:message_list('+${flag}+')'">故事</a>
                     </li>
                 </ul>
                 <div th:if="${flag}">

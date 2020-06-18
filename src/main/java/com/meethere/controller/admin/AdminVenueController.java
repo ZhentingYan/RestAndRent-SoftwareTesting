@@ -73,12 +73,16 @@ public class AdminVenueController {
             venue.setPicture("");
         }
 
-        int id=venueService.create(venue);
-        if (id <= 0) {
-            request.setAttribute("message", "添加失败！");
-            response.sendRedirect("venue_add");
-        } else {
-            response.sendRedirect("venue_manage");
+        try {
+            int id = venueService.create(venue);
+            if (id <= 0) {
+                request.setAttribute("message", "添加失败！");
+                response.sendRedirect("venue_add");
+            } else {
+                response.sendRedirect("venue_manage");
+            }
+        }catch(Exception e){
+            throw new RuntimeException("字段长度过长，请重新修改！");
         }
     }
 

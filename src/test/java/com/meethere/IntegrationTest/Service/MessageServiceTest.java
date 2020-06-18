@@ -123,11 +123,9 @@ public class MessageServiceTest {
     @Test
     public void reject_message_fail(){
         int id=1;
-
         assertThrows(RuntimeException.class,
                 ()->messageService.rejectMessage(id),
                 "留言不存在"    );
-
     }
 
     @Test

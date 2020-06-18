@@ -92,6 +92,8 @@ public class AdminVenueController {
                             int price, MultipartFile picture, String open_time,String close_time,HttpServletRequest request,
                             HttpServletResponse response) throws Exception {
         Venue venue=venueService.findByVenueID(venueID);
+        if(address.length()>255 || description.length()>1000 || open_time.length()>255 || close_time.length()>255)
+            throw new RuntimeException("字段长度过长，请重新修改！");
         venue.setVenueName(venueName);
         venue.setAddress(address);
         venue.setDescription(description);

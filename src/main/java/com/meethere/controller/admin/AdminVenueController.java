@@ -51,7 +51,6 @@ public class AdminVenueController {
     public List<Venue> getVenueList(@RequestParam(value = "page",defaultValue = "1")int page){
         Pageable pageable= PageRequest.of(page-1,10, Sort.by("venueID").ascending());
         return venueService.findAll(pageable).getContent();
-
     }
 
     @PostMapping("/addVenue.do")

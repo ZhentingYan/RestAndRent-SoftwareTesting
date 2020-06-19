@@ -234,17 +234,21 @@ public class AdminVenueApiTest {
         perform.andExpect(redirectedUrl("venue_manage"));
     }
     @Test
-    public void return_venue_manage_html() throws Exception {
+    public void IT_TD_009_001_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/venue_manage"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"total");
     }
-
     @Test
-    public void return_edit_venue() throws Exception {
-        ResultActions perform=mockMvc.perform(get("/venue_edit").param("venueID","2"));
+    public void IT_TD_009_002_001_001() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/venue_edit").param("venueID","2")),"venueID不存在！");
+
+    }
+    @Test
+    public void IT_TD_009_002_002_001() throws Exception {
+        ResultActions perform=mockMvc.perform(get("/venue_edit").param("venueID","29"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         perform.andExpect(status().isOk());

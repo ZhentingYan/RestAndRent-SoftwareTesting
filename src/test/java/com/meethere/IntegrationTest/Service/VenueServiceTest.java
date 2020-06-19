@@ -30,20 +30,29 @@ public class VenueServiceTest {
     private VenueService venueService;
 
     @Test
-    void find_venue_by_venueID() {
-        int venueID=2;
+    void IT_TD_007_001_001_001() {
+        int venueID=29;
         Venue res=venueService.findByVenueID(venueID);
+        System.out.println(res.getVenueID());
         assertEquals(venueID,res.getVenueID());
     }
 
     @Test
-    void  find_venue_by_venueName() {
+    void  IT_TD_007_002_001_001() {
         int venueID=2;
         String venue_name="2222";
         Venue res=venueService.findByVenueName(venue_name);
         assertEquals(venueID,res.getVenueID());
         assertEquals(venue_name,res.getVenueName());
+    }
 
+    @Test
+    void  IT_TD_007_002_002_001() {
+        int venueID=2;
+        String venue_name="2222";
+        Venue res=venueService.findByVenueName(venue_name);
+        assertEquals(venueID,res.getVenueID());
+        assertEquals(venue_name,res.getVenueName());
     }
 
     @Test
@@ -98,7 +107,6 @@ public class VenueServiceTest {
     @Test
     void count_number_of_same_venueName() {
         String venueName="222";
-
         int res1=venueService.countVenueName(venueName);
         assertEquals(1,res1);
         int res2=venueService.countVenueName("");

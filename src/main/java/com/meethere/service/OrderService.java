@@ -43,7 +43,7 @@ public interface OrderService {
      * @param startTime
      * @param hours
      */
-    void submit(String venueName, LocalDateTime startTime, int hours, String userID);
+    int submit(String venueName, LocalDateTime startTime, int hours, String userID);
 
     /**
      * 删除订单

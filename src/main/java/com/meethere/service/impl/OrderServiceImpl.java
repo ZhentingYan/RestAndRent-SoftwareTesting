@@ -2,7 +2,9 @@ package com.meethere.service.impl;
 
 import com.meethere.dao.OrderDao;
 
+import com.meethere.dao.UserDao;
 import com.meethere.dao.VenueDao;
+import com.meethere.entity.User;
 import com.meethere.entity.Venue;
 import com.meethere.entity.Order;
 import com.meethere.service.OrderService;
@@ -23,6 +25,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private VenueDao venueDao;
 
+    @Autowired
+    private UserDao userDao;
+
     @Override
     public Order findById(int OrderID) {
         return orderDao.getOne(OrderID);
@@ -42,7 +47,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours,String userID)  {
         Venue venue =venueDao.findByVenueName(venueName);
+        User user=userDao.findByUserID(userID);
+        if(user==null)
+            throw new RuntimeException("userID不存在！");
+        if(!startTime.isAfter(LocalDateTime.now()))
+            throw new RuntimeException("开始时间小于当前时间！");
+        if(venue==null)
+            throw new RuntimeException("venueName不存在！");
         Order order=orderDao.findByOrderID(orderID);
+        if(order==null)
+            throw new RuntimeException("order不存在！");
         order.setState(STATE_NO_AUDIT);
         order.setHours(hours);
         order.setVenueID(venue.getVenueID());
@@ -54,10 +68,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void submit(String venueName, LocalDateTime startTime, int hours, String userID) {
-
+    public int submit(String venueName, LocalDateTime startTime, int hours, String userID) {
         Venue venue =venueDao.findByVenueName(venueName);
-
+        User user=userDao.findByUserID(userID);
+        if(user==null)
+            throw new RuntimeException("userID不存在！");
+        if(!startTime.isAfter(LocalDateTime.now()))
+            throw new RuntimeException("开始时间小于当前时间！");
+        if(venue==null)
+            throw new RuntimeException("venueName不存在！");
         Order order=new Order();
         order.setState(STATE_NO_AUDIT);
         order.setHours(hours);
@@ -66,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
         order.setStartTime(startTime);
         order.setUserID(userID);
         order.setTotal(hours* venue.getPrice());
-        orderDao.save(order);
+        return orderDao.save(order).getOrderID();
     }
 
     @Override

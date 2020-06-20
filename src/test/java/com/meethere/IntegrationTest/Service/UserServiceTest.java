@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,41 +27,57 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    void return_user_ByUserID() {
-        String userID="user";
+    void IT_TD_006_001_001_001() {
+        String userID="test";
+        User res=userService.findByUserID(userID);
+        assertEquals("test",res.getUserName());
+    }
+    @Test
+    void IT_TD_006_001_002_001() {
+        String userID="测试";
         User res=userService.findByUserID(userID);
         assertNull(res);
     }
-
     @Test
-    void return_user_by_id() {
+    void IT_TD_006_002_001_001() {
         int id=1;
-
         User res=userService.findById(id);
         assertEquals(id,res.getId());
         assertEquals("test",res.getUserID());
     }
-
     @Test
-    void return_user_list_paged() {
-        Pageable pageable= PageRequest.of(0,10);
-        userService.findByUserID(pageable);
+    void IT_TD_006_002_002_001() {
+        int id=250;
+        User res=userService.findById(id);
+        assertNull(res);
     }
-
     @Test
-    void check_userID_and_password_matched() {
+    void IT_TD_006_004_001_001() {
         String userID="test";
         String password="test";
-
         User res=userService.checkLogin(userID,password);
         assertEquals(userID,res.getUserID());
         assertEquals(password,res.getPassword());
     }
+    @Test
+    void IT_TD_006_004_001_002() {
+        String userID="test";
+        String password="wrong";
+        User res=userService.checkLogin(userID,password);
+        assertNull(res);
+    }
+    @Test
+    void IT_TD_006_004_001_003() {
+        String userID="wrong";
+        String password="wrong";
+        User res=userService.checkLogin(userID,password);
+        assertNull(res);
+    }
 
     @Test
-    void register_a_new_user() {
+    void IT_TD_006_005_001_001() {
         int id=1;
-        String userID="user";
+        String userID="test";
         String password="password";
         String email="222@qq.com";
         String phone="12345678901";
@@ -68,38 +85,31 @@ public class UserServiceTest {
         String user_name="nickname";
         String picture="picture";
         User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
-
         int res=userService.create(user);
         assertTrue(res>0);
     }
 
     @Test
-    void del_user_by_id() {
+    public void IT_TD_006_006_001_001(){
         userService.delByID(1);
-
-        userService.delByID(6);
     }
 
     @Test
-    void update_user_info() {
-        int id=1;
-        String userID="test";
-        String password="password";
-        String email="222@qq.com";
-        String phone="12345678901";
-        int isadmin=0;
-        String user_name="nickname";
-        String picture="picture";
-        User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
-
-        userService.updateUser(user);
+    public void IT_TD_006_006_002_001(){
+        assertThrows(EmptyResultDataAccessException.class,
+                ()-> userService.delByID(250));
     }
 
     @Test
-    void return_number_of_same_userID() {
+    void IT_TD_006_008_001_001() {
         String userID="test";
         int res1=userService.countUserID(userID);
         assertEquals(1,res1);
-
+    }
+    @Test
+    void IT_TD_006_008_002_001() {
+        String userID="测试";
+        int res1=userService.countUserID(userID);
+        assertEquals(0,res1);
     }
 }

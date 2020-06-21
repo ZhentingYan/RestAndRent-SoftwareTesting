@@ -2,6 +2,7 @@ package com.meethere.IntegrationTest.Controller.Admin;
 
 import com.meethere.MeetHereApplication;
 import com.meethere.entity.User;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,38 +71,80 @@ public class AdminUserApiTest {
     }
 
     @Test
-    public void admin_modify_user() throws Exception {
-
-        ResultActions perform=mockMvc.perform(post("/modifyUser.do").param("userID","test").param("name","userName").param("password","password")
-                .param("email","email").param("phone","phone"));
-        perform.andExpect(redirectedUrl("user_manage"));
-
-    }
-
-    @Test
-    public void admin_add_user() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/addUser.do").param("userID","user").param("name","userName").param("password","password")
-                .param("email","email").param("phone","phone"));
+    public void IT_TD_012_006_001_001() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/addUser.do").param("userID","test").param("name","test").param("password","test")
+                .param("email","test@qq.com").param("phone","18918599239"));
         perform.andExpect(redirectedUrl("user_manage"));
     }
-
-
     @Test
-    public void return_already_exist_same_userID() throws Exception {
+    public void IT_TD_012_006_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","test").param("password","test")
+                        .param("email","test").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_012_006_001_003() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","test").param("password","")
+                        .param("email","test@qq.com").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_012_006_001_004() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","test").param("password","")
+                        .param("email","test").param("phone","18918599239"))
+        );
+    }
+    @Test
+    public void IT_TD_012_006_001_005() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","").param("password","test")
+                        .param("email","test@qq.com").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_012_006_001_006() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","").param("password","test")
+                        .param("email","test").param("phone","18918599239"))
+        );
+    }
+    @Test
+    public void IT_TD_012_006_001_007() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","").param("password","")
+                        .param("email","test@qq.com").param("phone","18918599239"))
+        );
+    }
+    @Test
+    public void IT_TD_012_006_001_008() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/addUser.do").param("userID","test").param("name","").param("password","")
+                        .param("email","test").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_012_007_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(post("/checkUserID.do").param("userID","test"));
         perform.andExpect(status().isOk()).andExpect(content().string("false"));
     }
 
     @Test
-    public void return_not_exist_same_userID() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/checkUserID.do").param("userID","user"));
+    public void IT_TD_012_007_001_002() throws Exception {
+        ResultActions perform=mockMvc.perform(post("/checkUserID.do").param("userID","wrong"));
         perform.andExpect(status().isOk()).andExpect(content().string("true"));
 
     }
 
     @Test
-    public void admin_del_user() throws Exception {
+    public void IT_TD_012_008_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(post("/delUser.do").param("id","1"));
         perform.andExpect(status().isOk());
+    }
+    @Test
+    public void IT_TD_012_008_001_002() throws Exception{
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/delUser.do").param("id","250")));
     }
 }

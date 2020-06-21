@@ -22,9 +22,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 public class AdminUserController {
+    /**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+
+    /**
+     * 正则表达式：验证邮箱
+     */
+    public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+
     @Autowired
     private UserService userService;
 
@@ -63,6 +74,8 @@ public class AdminUserController {
     @PostMapping("/modifyUser.do")
     public void modifyUser(String userID,String oldUserID,String userName, String password, String email, String phone,
                         HttpServletRequest request, HttpServletResponse response) throws IOException{
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && password!="" && userName!=""))
+            throw new RuntimeException("用户参数不符合规范！");
         User user=userService.findByUserID(oldUserID);
         user.setUserID(userID);
         user.setUserName(userName);
@@ -76,6 +89,8 @@ public class AdminUserController {
     @PostMapping("/addUser.do")
     public void addUser(String userID,String userName, String password, String email, String phone,
                         HttpServletRequest request, HttpServletResponse response) throws IOException{
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && password!="" && userName!=""))
+            throw new RuntimeException("用户参数不符合规范！");
         User user=new User();
         user.setUserID(userID);
         user.setUserName(userName);

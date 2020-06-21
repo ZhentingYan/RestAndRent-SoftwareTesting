@@ -71,6 +71,8 @@ public class AdminNewsController {
 
     @PostMapping("/addNews.do")
     public void addNews(String title, String content, HttpServletResponse response) throws IOException {
+        if(title=="" || content=="" || title.length()>100 || content.length()>5000)
+            throw new RuntimeException("新建公告参数不合法！");
         News news= new News();
         news.setTitle(title);
         news.setContent(content);

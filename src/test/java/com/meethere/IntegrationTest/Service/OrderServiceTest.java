@@ -147,6 +147,34 @@ public class OrderServiceTest {
                 ()->orderService.rejectOrder(orderID));
     }
     @Test
+    void IT_TD_004_002_001_001() {
+        int venueID=29;
+        LocalDateTime start_time= LocalDateTime.now();
+        List<Order> res=orderService.findDateOrder(venueID,start_time,start_time.plusDays(1));
+        assertEquals(0,res.size());
+    }
+    @Test
+    void IT_TD_004_002_001_002() {
+        int venueID=250;
+        LocalDateTime start_time= LocalDateTime.now();
+        assertThrows(RuntimeException.class,
+                ()->orderService.findDateOrder(venueID,start_time,start_time.minusDays(1)));
+    }
+    @Test
+    void IT_TD_004_002_001_003() {
+        int venueID=29;
+        LocalDateTime start_time= LocalDateTime.now();
+        List<Order> res=orderService.findDateOrder(venueID,start_time,start_time.plusDays(1));
+        assertEquals(0,res.size());
+    }
+    @Test
+    void IT_TD_004_002_001_004() {
+        int venueID=250;
+        LocalDateTime start_time= LocalDateTime.now();
+        assertThrows(RuntimeException.class,
+                ()->orderService.findDateOrder(venueID,start_time,start_time.minusDays(1)));
+    }
+    @Test
     void find_order_by_orderID() {
         int orderID=1;
 
@@ -157,11 +185,10 @@ public class OrderServiceTest {
 
     @Test
     void find_order_list_on_someday() {
-        int venueID=2;
+        int venueID=250;
         LocalDateTime start_time= LocalDateTime.now().plusDays(1);
-        List<Order> res=orderService.findDateOrder(venueID,start_time,start_time.plusDays(1));
+        List<Order> res=orderService.findDateOrder(venueID,start_time,start_time.minusDays(1));
         assertEquals(0,res.size());
-
     }
 
     @Test
@@ -175,76 +202,7 @@ public class OrderServiceTest {
     }
 
 
-    @Test
-    void update_order() {
-        int orderID=1;
-        String user="user";
-        LocalDateTime start_time= LocalDateTime.now().plusDays(1);
-        int hours=3;
 
-        orderService.updateOrder(orderID,"222",start_time,hours,user);
-
-    }
-
-    @Test
-    void submit_a_new_order() {
-        String user="user";
-        LocalDateTime start_time= LocalDateTime.now().plusDays(1);
-        int hours=3;
-
-        orderService.submit("222",start_time,hours,user);
-
-    }
-
-    @Test
-    void del_order() {
-        orderService.delOrder(1);
-
-        orderService.delOrder(2);
-
-    }
-
-    @Test
-    void confirm_order_success() {
-        int orderID=1;
-        orderService.confirmOrder(orderID);
-
-    }
-
-    @Test
-    public void confirm_order_fail(){
-        int orderID=100;
-        assertThrows(RuntimeException.class,
-                ()->orderService.confirmOrder(orderID),
-                "订单不存在"    );
-    }
-    @Test
-    void finish_order_success() {
-        int orderID=1;
-        orderService.finishOrder(orderID);
-
-    }
-    @Test
-    public void finish_order_fail(){
-        int orderID=100;
-        assertThrows(RuntimeException.class,
-                ()->orderService.finishOrder(orderID),
-                "订单不存在"    );
-    }
-
-    @Test
-    void reject_order_success() {
-        int orderID=1;
-        orderService.rejectOrder(orderID);
-    }
-
-    @Test
-    public void  reject_order_fail(){
-        int orderID=100;
-        assertThrows(RuntimeException.class,
-                ()->orderService.rejectOrder(orderID),
-                "订单不存在"    );
-    }
     @Test
     void return_noAudit_order_paged() {
         int state=1;

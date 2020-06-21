@@ -35,6 +35,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2) {
+        if(!startTime2.isAfter((startTime)))
+            throw new RuntimeException("查询订单起止时间异常！");
         return orderDao.findByVenueIDAndStartTimeIsBetween(venueID,startTime,startTime2);
     }
 

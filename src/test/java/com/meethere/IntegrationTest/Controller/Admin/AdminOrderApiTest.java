@@ -17,11 +17,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -38,7 +40,7 @@ public class AdminOrderApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void return_reservation_manage_html() throws Exception {
+    public void IT_TD_011_001_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/reservation_manage"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
@@ -48,22 +50,28 @@ public class AdminOrderApiTest {
     }
 
     @Test
-    public void admin_get_no_audit_order_list() throws Exception {
+    public void IT_TD_011_002_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/admin/getOrderList.do").param("page","1"));
         perform.andExpect(status().isOk());
-
     }
-
     @Test
-    public void admin_confirm_order() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/passOrder.do").param("orderID","1"));
+    public void IT_TD_011_003_001_001() throws Exception {
+        ResultActions perform=mockMvc.perform(post("/passOrder.do").param("orderID","32"));
         perform.andExpect(status().isOk());
     }
 
     @Test
-    public void admin_reject_order() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/rejectOrder.do").param("orderID","1"));
-        perform.andExpect(status().isOk());
-
+    public void IT_TD_011_003_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/passOrder.do").param("orderID","250")),"订单不存在！");
     }
+    @Test
+    public void IT_TD_011_004_001_001() throws Exception {
+        ResultActions perform=mockMvc.perform(post("/rejectOrder.do").param("orderID","32"));
+        perform.andExpect(status().isOk());
+    }
+    @Test
+    public void IT_TD_011_004_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/rejectOrder.do").param("orderID","250")),"订单不存在！");
+    }
+
 }

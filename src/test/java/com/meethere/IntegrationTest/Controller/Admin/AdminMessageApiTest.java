@@ -19,11 +19,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.ModelAndViewAssert.assertModelAttributeAvailable;
@@ -40,7 +42,7 @@ public class AdminMessageApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void t1() throws Exception {
+    public void IT_TD_010_005_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/message_manage"));
         perform.andExpect(status().isOk());
 
@@ -50,27 +52,38 @@ public class AdminMessageApiTest {
     }
 
     @Test
-    public void return_message_list_to_audit() throws Exception {
+    public void IT_TD_010_001_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/messageList.do"));
         perform.andExpect(status().isOk()).andDo(print());
 
     }
 
     @Test
-    public void admin_pass_message() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/passMessage.do").param("messageID","2"));
+    public void IT_TD_010_002_001_001() throws Exception {
+        ResultActions perform=mockMvc.perform(post("/passMessage.do").param("messageID","26"));
         perform.andExpect(status().isOk()).andDo(print());
     }
-
     @Test
-    public void admin_reject_message() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/rejectMessage.do").param("messageID","2"));
+    public void IT_TD_010_002_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/passMessage.do").param("messageID","250")),"留言不存在！");
+    }
+    @Test
+    public void IT_TD_010_003_001_001() throws Exception {
+        ResultActions perform=mockMvc.perform(post("/rejectMessage.do").param("messageID","26"));
         perform.andExpect(status().isOk()).andDo(print());
     }
-
     @Test
-    public void admin_del_message() throws Exception {
-        ResultActions perform=mockMvc.perform(post("/delMessage.do").param("messageID","2"));
-        perform.andExpect(status().isOk());
+    public void IT_TD_010_003_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/rejectMessage.do").param("messageID","250")),"留言不存在！");
     }
+    @Test
+    public void IT_TD_010_004_001_001() throws Exception {
+        ResultActions perform=mockMvc.perform(post("/delMessage.do").param("messageID","26"));
+        perform.andExpect(status().isOk()).andDo(print());
+    }
+    @Test
+    public void IT_TD_010_004_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/delMessage.do").param("messageID","250")),"留言不存在！");
+    }
+
 }

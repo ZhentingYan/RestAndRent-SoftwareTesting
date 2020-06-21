@@ -54,6 +54,8 @@ public class AdminUserController {
     @GetMapping("/user_edit")
     public String user_edit(Model model,int id){
         User user=userService.findById(id);
+        if(user==null)
+            throw new RuntimeException("用户ID不存在！");
         model.addAttribute("user",user);
         return "admin/user_edit";
     }

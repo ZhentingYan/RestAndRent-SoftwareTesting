@@ -45,7 +45,6 @@ public class AdminMessageController {
     @PostMapping("/passMessage.do")
     @ResponseBody
     public boolean passMessage(int messageID){
-
         messageService.confirmMessage(messageID);
         return true;
     }
@@ -53,7 +52,6 @@ public class AdminMessageController {
     @PostMapping("/rejectMessage.do")
     @ResponseBody
     public boolean rejectMessage(int messageID){
-
         messageService.rejectMessage(messageID);
         return true;
     }

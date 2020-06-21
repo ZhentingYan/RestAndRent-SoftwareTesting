@@ -45,7 +45,6 @@ public class AdminNewsApiTest {
     public void return_news_manage_html() throws Exception{
         ResultActions perform=mockMvc.perform(get("/news_manage"));
         perform.andExpect(status().isOk()).andDo(print());
-
         MvcResult mvcResult=mockMvc.perform(get("/news_manage")).andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         assertModelAttributeAvailable(mv,"total");

@@ -17,10 +17,12 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
@@ -39,35 +41,32 @@ public class AdminUserApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void return_user_manage_html() throws Exception {
+    public void IT_TD_012_001_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/user_manage"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"total");
-
     }
 
-    @Test
-    public void return_user_add_html() throws Exception {
-        ResultActions perform=mockMvc.perform(get("/user_add"));
-        perform.andExpect(status().isOk());
-    }
 
     @Test
-    public void return_user_list() throws Exception {
+    public void IT_TD_012_003_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/userList.do").param("page","1"));
         perform.andExpect(status().isOk());
-
     }
-
     @Test
-    public void return_user_edit_html() throws Exception {
+    public void IT_TD_012_004_001_001() throws Exception{
         ResultActions perform=mockMvc.perform(get("/user_edit").param("id","1"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"user");
+
+    }
+    @Test
+    public void IT_TD_012_004_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/user_edit").param("id","250")),"用户ID不存在！");
     }
 
     @Test

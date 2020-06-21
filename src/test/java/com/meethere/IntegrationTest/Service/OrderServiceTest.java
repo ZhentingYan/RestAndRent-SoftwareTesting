@@ -16,6 +16,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.persistence.Entity;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -175,25 +177,22 @@ public class OrderServiceTest {
                 ()->orderService.findDateOrder(venueID,start_time,start_time.minusDays(1)));
     }
     @Test
-    void find_order_by_orderID() {
-        int orderID=1;
-
+    void IT_TD_004_001_001_001() {
+        int orderID=32;
         Order res=orderService.findById(orderID);
         assertEquals(orderID,res.getOrderID());
     }
-
-
     @Test
-    void find_order_list_on_someday() {
-        int venueID=250;
-        LocalDateTime start_time= LocalDateTime.now().plusDays(1);
-        List<Order> res=orderService.findDateOrder(venueID,start_time,start_time.minusDays(1));
-        assertEquals(0,res.size());
+    void IT_TD_004_001_002_001() {
+        int orderID=250;
+        Order res=orderService.findById(orderID);
+        assertThrows(EntityNotFoundException.class,()->orderService.findById(orderID).toString());
     }
 
+
     @Test
-    void find_user_orders() {
-        String user="user";
+    void IT_TD_004_003_001_001() {
+        String user="test";
         Pageable pageable= PageRequest.of(0,10);
         List<Order> orders= orderService.findUserOrder(user,pageable).getContent();
         for(Order o:orders){
@@ -201,10 +200,18 @@ public class OrderServiceTest {
         }
     }
 
-
+    @Test
+    void IT_TD_004_003_002_001() {
+        String user="wrong";
+        Pageable pageable= PageRequest.of(0,10);
+        List<Order> orders= orderService.findUserOrder(user,pageable).getContent();
+        for(Order o:orders){
+            assertEquals(user,o.getUserID());
+        }
+    }
 
     @Test
-    void return_noAudit_order_paged() {
+    void IT_TD_004_010_001_001() {
         int state=1;
         Pageable pageable=PageRequest.of(0,10);
         List<Order> orders= orderService.findNoAuditOrder(pageable).getContent();
@@ -214,7 +221,16 @@ public class OrderServiceTest {
     }
 
     @Test
-    void  return_audit_order_paged() {
-       orderService.findAuditOrder();
+    void  IT_TD_004_011_001_001() {
+        List<Order> orders=orderService.findAuditOrder();
+        for(Order o:orders){
+            if(o.getState()==2)
+                assertEquals(2,o.getState());
+            else if(o.getState()==4)
+                assertEquals(4,o.getState());
+            else{
+                assertEquals(2,o.getState());
+            }
+        }
     }
 }

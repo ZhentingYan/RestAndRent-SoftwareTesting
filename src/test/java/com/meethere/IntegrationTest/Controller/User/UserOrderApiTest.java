@@ -43,13 +43,13 @@ public class UserOrderApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void fail_return_order_manage_html_when_user_not_login() {
+    public void IT_TD_015_001_002_001() {
         assertThrows(NestedServletException.class,()->mockMvc.perform(get("/order_manage")),"请登录！");
     }
     @Test
-    public void success_return_order_manage_html_when_user_login() throws Exception {
+    public void IT_TD_015_001_001_001() throws Exception {
         int id=1;
-        String userID="user";
+        String userID="test";
         String password="password";
         String email="222@qq.com";
         String phone="12345678901";
@@ -61,18 +61,35 @@ public class UserOrderApiTest {
         ModelAndView mv=perform.andReturn().getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"total");
-
-
+    }
+    @Test
+    public void IT_TD_015_001_001_002() throws Exception {
+        int id=1;
+        String userID="wrong";
+        String password="password";
+        String email="222@qq.com";
+        String phone="12345678901";
+        int isadmin=0;
+        String user_name="nickname";
+        String picture="picture";
+        User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
+        ResultActions perform=mockMvc.perform(get("/order_manage").sessionAttr("user",user));
+        ModelAndView mv=perform.andReturn().getModelAndView();
+        perform.andExpect(status().isOk());
+        assertModelAttributeAvailable(mv,"total");
     }
 
     @Test
-    public void return_order_place_html_by_click_from_venue_detail()throws Exception {
-        ResultActions perform=mockMvc.perform(get("/order_place.do").param("venueID","2"));
+    public void IT_TD_015_002_001_001()throws Exception {
+        ResultActions perform=mockMvc.perform(get("/order_place.do").param("venueID","29"));
         ModelAndView mv=perform.andReturn().getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"venue");
     }
-
+    @Test
+    public void IT_TD_015_002_001_002()throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/order_place.do").param("venueID","250")),"venueID不存在！");
+    }
     @Test
     public void return_order_place_html_by_click_from_top()throws Exception {
         mockMvc.perform(get("/order_place")).andExpect(status().isOk());
@@ -95,22 +112,83 @@ public class UserOrderApiTest {
     }
 
     @Test
-    public void fail_add_new_order_when_user_not_login()throws Exception {
+    public void IT_TD_015_005_002_001()throws Exception {
         assertThrows(NestedServletException.class,()->mockMvc.perform(post("/addOrder.do").param("venueName","venue")
                         .param("date","").param("startTime","2019-12-22 11:00").param("hours","1")),
                 "请登录！");
     }
-
     @Test
-    public void success_add_new_order_when_user_login() throws Exception{
+    public void IT_TD_015_005_001_001() throws Exception{
         User user=new User();
         user.setUserID("user");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                        .param("venueName","wrongname").param("date","").param("startTime","2020-09-20 11:00")
+                        .param("hours","5")));
+    }
+    @Test
+    public void IT_TD_015_005_001_002() throws Exception{
+        User user=new User();
+        user.setUserID("user");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                        .param("venueName","上海市普陀区图书馆青少年活动室").param("date","").param("startTime","2020-01-05 20:00")
+                        .param("hours","5")));
+    }
+    @Test
+    public void IT_TD_015_005_001_003() throws Exception{
+        User user=new User();
+        user.setUserID("user");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                .param("venueName","上海市普陀区图书馆青少年活动室").param("date","").param("startTime","2020-09-20 11:00")
+                .param("hours","5")));
+    }
+    @Test
+    public void IT_TD_015_005_001_004() throws Exception{
+        User user=new User();
+        user.setUserID("user");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                        .param("venueName","wrongname").param("date","").param("startTime","2020-01-05 20:00")
+                        .param("hours","5")));
+    }
+    @Test
+    public void IT_TD_015_005_001_005() throws Exception{
+        User user=new User();
+        user.setUserID("test");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                        .param("venueName","wrongname").param("date","").param("startTime","2020-09-20 11:00")
+                        .param("hours","5")));
+    }
+    @Test
+    public void IT_TD_015_005_001_006() throws Exception{
+        User user=new User();
+        user.setUserID("test");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                        .param("venueName","上海市普陀区图书馆青少年活动室").param("date","").param("startTime","2020-01-05 20:00")
+                        .param("hours","5")));
+    }
+    @Test
+    public void IT_TD_015_005_001_007() throws Exception{
+        User user=new User();
+        user.setUserID("test");
         ResultActions perform=mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
-                .param("venueName","2222").param("date","").param("startTime","2019-12-22 11:00")
-                .param("hours","1"));
+                .param("venueName","上海市普陀区图书馆青少年活动室").param("date","").param("startTime","2020-09-20 11:00")
+                .param("hours","5"));
         perform.andExpect(redirectedUrl("order_manage"));
     }
-
+    @Test
+    public void IT_TD_015_005_001_008() throws Exception{
+        User user=new User();
+        user.setUserID("test");
+        assertThrows(NestedServletException.class,
+                ()->mockMvc.perform(post("/addOrder.do").sessionAttr("user",user)
+                        .param("venueName","wrongname").param("date","").param("startTime","2020-01-05 20:00")
+                        .param("hours","5")));
+    }
     @Test
     public void user_finish_order() throws Exception{
         ResultActions perform=mockMvc.perform(post("/finishOrder.do").param("orderID","1"));

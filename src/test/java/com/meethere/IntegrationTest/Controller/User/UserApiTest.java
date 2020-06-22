@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.NestedServletException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -51,104 +53,152 @@ public class UserApiTest {
         mockMvc.perform(get("/login").sessionAttr("admin",new User())).andExpect(status().isOk()).andExpect(view().name("admin/admin_index"));
     }
     @Test
-    public void return_login_html() throws Exception{
-        mockMvc.perform(get("/login")).andExpect(status().isOk());
+    public void IT_TD_014_003_001_001() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","test").param("password","test"));
+        perform.andExpect(status().isOk()).andExpect(content().string("/index"));
     }
-
     @Test
-    public void do_not_find_user_in_sql() throws Exception{
-        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","user").param("password","password"));
+    public void IT_TD_014_003_001_002() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","admin").param("password","admin"));
+        perform.andExpect(status().isOk()).andExpect(content().string("/admin_index"));
+    }
+    @Test
+    public void IT_TD_014_003_001_003() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","").param("password",""));
         perform.andExpect(status().isOk()).andExpect(content().string("false"));
     }
-
     @Test
-    public void find_user_in_sql() throws Exception{
-        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","test").param("password","test"));
-        perform.andExpect(status().isOk());
+    public void IT_TD_014_003_001_004() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","test").param("password","wrongpassword"));
+        perform.andExpect(status().isOk()).andExpect(content().string("false"));
     }
-
     @Test
-    public void find_admin_in_sql() throws Exception{
-        ResultActions perform=mockMvc.perform(post("/loginCheck.do").param("userID","admin").param("password","admin"));
-        perform.andExpect(status().isOk());
-    }
-
-    @Test
-    public void register_a_new_user()throws Exception {
-        ResultActions perform=mockMvc.perform(post("/register.do").param("userID","user").param("userName","name").param("password","password")
-                .param("email","email").param("phone","phone"));
+    public void IT_TD_014_004_001_001() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/register.do").param("userID","test").param("name","test").param("password","test")
+                .param("email","test@qq.com").param("phone","18918599239"));
         perform.andExpect(redirectedUrl("login"));
     }
+    @Test
+    public void IT_TD_014_004_001_002() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","test").param("password","test")
+                        .param("email","test").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_014_004_001_003() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","test").param("password","")
+                        .param("email","test@qq.com").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_014_004_001_004() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","test").param("password","")
+                        .param("email","test").param("phone","18918599239"))
+        );
+    }
+    @Test
+    public void IT_TD_014_004_001_005() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","").param("password","test")
+                        .param("email","test@qq.com").param("phone","1891859"))
+        );
+    }
+    @Test
+    public void IT_TD_014_004_001_006() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","").param("password","test")
+                        .param("email","test").param("phone","18918599239"))
+        );
+    }
+    @Test
+    public void IT_TD_014_004_001_007() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","").param("password","")
+                        .param("email","test@qq.com").param("phone","18918599239"))
+        );
+    }
+    @Test
+    public void IT_TD_014_004_001_008() throws Exception {
+        assertThrows(NestedServletException.class,()->
+                mockMvc.perform(post("/register.do").param("userID","test").param("name","").param("password","")
+                        .param("email","test").param("phone","1891859"))
+        );
+    }
 
     @Test
-    public void user_logout()throws Exception {
+    public void IT_TD_014_005_001_001()throws Exception {
         ResultActions perform=mockMvc.perform(get("/logout.do"));
+        perform.andExpect(redirectedUrl("/index"));
+    }
+    @Test
+    public void IT_TD_014_006_001_001()throws Exception {
+        ResultActions perform=mockMvc.perform(get("/quit.do"));
         perform.andExpect(redirectedUrl("/index"));
     }
 
     @Test
-    public void user_update_info_when_passwordNews_is_null_and_picture_is_null()throws Exception {
+    public void IT_TD_014_007_001_001()throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("picture","",
                 "picture", "".getBytes());
-
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/updateUser.do").file(mockMultipartFile).param("userID","test").param("userName","name")
                         .param("passwordNew", (String) null)
-                        .param("email","email").param("phone","phone");
+                        .param("email","632950864@qq.com").param("phone","18918599239");
         ResultActions perform=mockMvc.perform(builder);
         perform.andExpect(redirectedUrl("user_info"));
-
     }
 
     @Test
-    public void user_update_info_when_passwordNews_is_null_and_picture_is_not_null()throws Exception {
+    public void IT_TD_014_007_001_002()throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("picture","1.bmp",
                 "picture", "1.bmp".getBytes());
-
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/updateUser.do").file(mockMultipartFile).param("userID","test").param("userName","name")
                         .param("passwordNew", (String) null)
-                        .param("email","email").param("phone","phone");
+                        .param("email","632950864@qq.com").param("phone","18918599239");
         ResultActions perform=mockMvc.perform(builder);
         perform.andExpect(redirectedUrl("user_info"));
 
     }
 
     @Test
-    public void user_update_info_when_passwordNews_is___and_picture_is_null()throws Exception {
+    public void IT_TD_014_007_001_003()throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("picture","",
                 "picture", "".getBytes());
 
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/updateUser.do").file(mockMultipartFile).param("userID","test").param("userName","name")
                         .param("passwordNew", "")
-                        .param("email","email").param("phone","phone");
+                        .param("email","632950864@qq.com").param("phone","18918599239");
         ResultActions perform=mockMvc.perform(builder);
         perform.andExpect(redirectedUrl("user_info"));
 
     }
     @Test
-    public void user_update_info_when_passwordNews_is___and_picture_is_not_null()throws Exception {
+    public void IT_TD_014_007_001_004()throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("picture","1.bmp",
                 "picture", "1.bmp".getBytes());
 
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/updateUser.do").file(mockMultipartFile).param("userID","test").param("userName","name")
                         .param("passwordNew", "")
-                        .param("email","email").param("phone","phone");
+                        .param("email","632950864@qq.com").param("phone","18918599239");
         ResultActions perform=mockMvc.perform(builder);
         perform.andExpect(redirectedUrl("user_info"));
     }
 
     @Test
-    public void user_update_info_when_passwordNews_is_not_null__and_picture_is_null()throws Exception {
+    public void IT_TD_014_007_001_005()throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("picture","",
                 "picture", "".getBytes());
 
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/updateUser.do").file(mockMultipartFile).param("userID","test").param("userName","name")
                         .param("passwordNew", "newPassword")
-                        .param("email","email").param("phone","phone");
+                        .param("email","632950864@qq.com").param("phone","18918599239");
         ResultActions perform=mockMvc.perform(builder);
         perform.andExpect(redirectedUrl("user_info"));
 
@@ -156,32 +206,38 @@ public class UserApiTest {
     }
 
     @Test
-    public void user_update_info_when_passwordNews_is_not_null__and_picture_is_not_null()throws Exception {
+    public void IT_TD_014_007_001_006()throws Exception {
         MockMultipartFile mockMultipartFile = new MockMultipartFile("picture","1.bmp",
                 "picture", "1.bmp".getBytes());
 
         MockHttpServletRequestBuilder builder =
                 MockMvcRequestBuilders.multipart("/updateUser.do").file(mockMultipartFile).param("userID","test").param("userName","name")
                         .param("passwordNew", "newPassword")
-                        .param("email","email").param("phone","phone");
+                        .param("email","632950864@qq.com").param("phone","18918599239");
         ResultActions perform=mockMvc.perform(builder);
         perform.andExpect(redirectedUrl("user_info"));
     }
 
-
     @Test
-    public void check_password_true()throws Exception {
+    public void IT_TD_014_008_001_001()throws Exception {
         ResultActions perform=mockMvc.perform(get("/checkPassword.do").param("userID","test").param("password","test"));
         perform.andExpect(status().isOk()).andExpect(content().string("true"));
     }
-
-
     @Test
-    public void check_password_false()throws Exception {
-        ResultActions perform=mockMvc.perform(get("/checkPassword.do").param("userID","test").param("password","password"));
+    public void IT_TD_014_008_001_002()throws Exception {
+        ResultActions perform=mockMvc.perform(get("/checkPassword.do").param("userID","admin").param("password","admin"));
+        perform.andExpect(status().isOk()).andExpect(content().string("true"));
+    }
+    @Test
+    public void IT_TD_014_008_001_003()throws Exception {
+        ResultActions perform=mockMvc.perform(get("/checkPassword.do").param("userID","wrong").param("password","wrong"));
         perform.andExpect(status().isOk()).andExpect(content().string("false"));
     }
-
+    @Test
+    public void IT_TD_014_008_001_004()throws Exception {
+        ResultActions perform=mockMvc.perform(get("/checkPassword.do").param("userID","test").param("password","wrongpassword"));
+        perform.andExpect(status().isOk()).andExpect(content().string("false"));
+    }
     @Test
     public void IT_TD_014_009_001_001() throws Exception{
         mockMvc.perform(get("/user_info").sessionAttr("user",new User())).andExpect(status().isOk()).andExpect(view().name("user_info"));

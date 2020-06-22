@@ -13,9 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 @Controller
 public class UserController {
+    /**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+
+    /**
+     * 正则表达式：验证邮箱
+     */
+    public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+
     @Autowired
     private UserService userService;
 
@@ -31,7 +42,6 @@ public class UserController {
     public String login(HttpServletRequest request){
         Object user=request.getSession().getAttribute("user");
         Object admin=request.getSession().getAttribute("admin");
-
         if(user==null && admin!=null)
             return "admin/admin_index";
         else if(admin==null && user!=null)
@@ -61,6 +71,8 @@ public class UserController {
     @PostMapping("/register.do")
     public void register(String userID,String userName, String password, String email, String phone,
                          HttpServletResponse response) throws IOException{
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && password!="" && userName!=""))
+            throw new RuntimeException("用户参数不符合规范！");
         User user=new User();
         user.setUserID(userID);
         user.setUserName(userName);
@@ -89,6 +101,8 @@ public class UserController {
 
     @PostMapping("/updateUser.do")
     public void updateUser(String userName, String userID, String passwordNew,String email, String phone, MultipartFile picture,HttpServletRequest request, HttpServletResponse response) throws Exception {
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && userName!=""))
+            throw new RuntimeException("用户参数不符合规范！");
         User user=userService.findByUserID(userID);
         user.setUserName(userName);
         if(passwordNew!=null&& !"".equals(passwordNew)){
@@ -112,7 +126,9 @@ public class UserController {
     public boolean checkPassword(String userID,String password)
     {
         User user=userService.findByUserID(userID);
+        if(user!=null)
         return user.getPassword().equals(password);
+        else return false;
     }
 
     @GetMapping("/user_info")

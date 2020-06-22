@@ -20,8 +20,11 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/signup")
-    public String signUp(){
-        return "signup";
+    public String signUp(HttpServletRequest request){
+        Object user=request.getSession().getAttribute("user");
+        if(user==null)
+            return "signup";
+        return "index";
     }
 
     @GetMapping("/login")
@@ -49,7 +52,6 @@ public class UserController {
             }
         }
         return "false";
-
     }
 
     @PostMapping("/register.do")
@@ -110,7 +112,10 @@ public class UserController {
     }
 
     @GetMapping("/user_info")
-    public String user_info(Model model){
+    public String user_info(Model model,HttpServletRequest request){
+        Object user=request.getSession().getAttribute("user");
+        if(user==null)
+            return "login";
         return "user_info";
     }
 }

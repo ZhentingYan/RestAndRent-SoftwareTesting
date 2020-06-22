@@ -34,6 +34,7 @@ import static org.springframework.test.web.ModelAndViewAssert.assertModelAttribu
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = MeetHereApplication.class)
@@ -67,11 +68,11 @@ public class IndexApiTest {
         String user_name="nickname";
         String picture="picture";
         User user=new User(id,userID,user_name,password,email,phone,isadmin,picture);
-        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/admin_index").sessionAttr("user",user)),"权限不足，普通用户不可进入后台管理界面！");
+        mockMvc.perform(get("/admin_index").sessionAttr("user",user)).andExpect(status().isOk()).andExpect(view().name("index"));
     }
     @Test
     public void IT_TD_008_002_003_001() throws Exception{
-        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/admin_index")),"请登录！");
+        mockMvc.perform(get("/admin_index")).andExpect(status().isOk()).andExpect(view().name("login"));
     }
     //ResultActions perform=mockMvc.perform(get("/admin_index"));
     //perform.andExpect(status().isOk()).andDo(print());

@@ -31,10 +31,13 @@ public class UserApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void return_sign_up_html() throws Exception {
-        mockMvc.perform(get("/signup")).andExpect(status().isOk());
+    public void IT_TD_014_001_001_001() throws Exception {
+        mockMvc.perform(get("/signup").sessionAttr("user",new User())).andExpect(status().isOk()).andExpect(view().name("index"));
     }
-
+    @Test
+    public void IT_TD_014_001_001_002() throws Exception {
+        mockMvc.perform(get("/signup")).andExpect(status().isOk()).andExpect(view().name("signup"));
+    }
     @Test
     public void return_login_html() throws Exception{
         mockMvc.perform(get("/login")).andExpect(status().isOk());
@@ -168,7 +171,11 @@ public class UserApiTest {
     }
 
     @Test
-    public void return_user_info_html() throws Exception{
-        mockMvc.perform(get("/user_info").sessionAttr("user",new User())).andExpect(status().isOk());
+    public void IT_TD_014_009_001_001() throws Exception{
+        mockMvc.perform(get("/user_info").sessionAttr("user",new User())).andExpect(status().isOk()).andExpect(view().name("user_info"));
+    }
+    @Test
+    public void IT_TD_014_009_001_002() throws Exception{
+        mockMvc.perform(get("/user_info")).andExpect(status().isOk()).andExpect(view().name("login"));
     }
 }

@@ -28,12 +28,16 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public String login(HttpServletRequest request){
+        Object user=request.getSession().getAttribute("user");
+        Object admin=request.getSession().getAttribute("admin");
+
+        if(user==null && admin!=null)
+            return "admin/admin_index";
+        else if(admin==null && user!=null)
+            return "index";
+        else return "login";
     }
-
-
-
 
     @PostMapping("/loginCheck.do")
     @ResponseBody

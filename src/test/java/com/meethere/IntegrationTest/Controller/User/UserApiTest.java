@@ -39,6 +39,18 @@ public class UserApiTest {
         mockMvc.perform(get("/signup")).andExpect(status().isOk()).andExpect(view().name("signup"));
     }
     @Test
+    public void IT_TD_014_002_001_001() throws Exception {
+        mockMvc.perform(get("/login").sessionAttr("user",new User())).andExpect(status().isOk()).andExpect(view().name("index"));
+    }
+    @Test
+    public void IT_TD_014_002_001_002() throws Exception {
+        mockMvc.perform(get("/login")).andExpect(status().isOk()).andExpect(view().name("login"));
+    }
+    @Test
+    public void IT_TD_014_002_001_003() throws Exception {
+        mockMvc.perform(get("/login").sessionAttr("admin",new User())).andExpect(status().isOk()).andExpect(view().name("admin/admin_index"));
+    }
+    @Test
     public void return_login_html() throws Exception{
         mockMvc.perform(get("/login")).andExpect(status().isOk());
     }

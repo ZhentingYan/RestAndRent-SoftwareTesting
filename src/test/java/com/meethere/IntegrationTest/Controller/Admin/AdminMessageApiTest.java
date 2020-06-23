@@ -32,6 +32,7 @@ import static org.springframework.test.web.ModelAndViewAssert.assertModelAttribu
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -83,7 +84,8 @@ public class AdminMessageApiTest {
     }
     @Test
     public void IT_TD_010_004_001_002() throws Exception {
-        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/delMessage.do").param("messageID","250")),"留言不存在！");
+        ResultActions perform=mockMvc.perform(post("/delMessage.do").param("messageID","250"));
+        perform.andExpect(status().isOk()).andExpect(content().string("false"));
     }
 
 }

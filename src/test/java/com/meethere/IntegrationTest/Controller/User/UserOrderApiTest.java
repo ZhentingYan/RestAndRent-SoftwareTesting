@@ -91,24 +91,8 @@ public class UserOrderApiTest {
         assertThrows(NestedServletException.class,()->mockMvc.perform(get("/order_place.do").param("venueID","250")),"venueID不存在！");
     }
     @Test
-    public void return_order_place_html_by_click_from_top()throws Exception {
+    public void IT_TD_015_003_001_001()throws Exception {
         mockMvc.perform(get("/order_place")).andExpect(status().isOk());
-    }
-
-    @Test
-    public void fail_return_order_list_when_user_not_login() throws Exception{
-        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/getOrderList.do")),"请登录！");
-    }
-
-    @Test
-    public void success_return_order_list_when_user_login() throws Exception{
-        int id=1;
-        String userID="user";
-        User user=new User();
-        user.setUserID("user");
-        ResultActions perform=mockMvc.perform(get("/getOrderList.do").sessionAttr("user",user).param("page","1"));
-        perform.andExpect(status().isOk());
-
     }
 
     @Test
@@ -190,46 +174,47 @@ public class UserOrderApiTest {
                         .param("hours","5")));
     }
     @Test
-    public void user_finish_order() throws Exception{
-        ResultActions perform=mockMvc.perform(post("/finishOrder.do").param("orderID","1"));
+    public void IT_TD_015_006_001_001() throws Exception{
+        ResultActions perform=mockMvc.perform(post("/finishOrder.do").param("orderID","32"));
         perform.andExpect(status().isOk());
     }
-
     @Test
-    public void return_modify_order_html() throws Exception{
-        ResultActions perform=mockMvc.perform(get("/modifyOrder.do").param("orderID","1"));
+    public void IT_TD_015_006_001_002() throws Exception{
+
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/finishOrder.do").param("orderID","250")));
+    }
+    @Test
+    public void IT_TD_015_010_001_001() throws Exception{
+        ResultActions perform=mockMvc.perform(get("/modifyOrder.do").param("orderID","32"));
         ModelAndView mv=perform.andReturn().getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"venue");
         assertModelAttributeAvailable(mv,"order");
     }
+    @Test
+    public void IT_TD_015_010_001_002() throws Exception{
+        ResultActions perform=mockMvc.perform(get("/modifyOrder.do").param("orderID","250"));
+        perform.andExpect(status().isOk()).andExpect(view().name("/index"));
+    }
+
 
     @Test
-    public void fail_modify_old_order_when_user_not_login() throws Exception{
-        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/modifyOrder")
-                        .param("venueName","venue").param("date","").param("startTime","2019-12-22 11:00")
-                        .param("hours","1").param("orderID","1")),
-                "请登录！");
-
+    public void IT_TD_015_008_001_001()throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(post("/delOrder.do").param("orderID","250")));
+    }
+    @Test
+    public void IT_TD_015_008_001_002() throws Exception{
+        mockMvc.perform(post("/delOrder.do").param("orderID","32")).andExpect(status().isOk()).andExpect(content().string("true"));
     }
 
     @Test
-    public void success_modify_old_order_when_user_login()throws Exception {
-        User user=new User();
-        user.setUserID("user");
-        ResultActions perform=mockMvc.perform(post("/modifyOrder").sessionAttr("user",user)
-                .param("venueName","222").param("date","").param("startTime","2019-12-22 11:00")
-                .param("hours","1").param("orderID","1"));
-        perform.andExpect(redirectedUrl("order_manage"));
+    public void IT_TD_015_009_001_001()throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/order/getOrderList.do").param("venueName","wrongName").param("date","2019-12-22"))
+                .andExpect(status().isOk()));
     }
     @Test
-    public void user_del_order()throws Exception {
-        mockMvc.perform(post("/delOrder.do").param("orderID","1")).andExpect(status().isOk()).andExpect(content().string("true"));
-    }
-
-    @Test
-    public void return_ordered_list_on_someday()throws Exception {
-        mockMvc.perform(get("/order/getOrderList.do").param("venueName","222").param("date","2019-12-22"))
+    public void IT_TD_015_009_001_002()throws Exception {
+        mockMvc.perform(get("/order/getOrderList.do").param("venueName","上海市普陀区图书馆青少年活动室").param("date","2019-12-22"))
                 .andExpect(status().isOk());
     }
 }

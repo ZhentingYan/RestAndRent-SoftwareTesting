@@ -17,14 +17,17 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.ModelAndViewAssert.assertModelAttributeAvailable;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = MeetHereApplication.class)
@@ -34,25 +37,27 @@ public class UserNewsApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void return_news_detail_html() throws Exception {
-        ResultActions perform=mockMvc.perform(get("/news").param("newsID","1"));
+    public void IT_TD_018_001_001_001() throws Exception {
+        assertThrows(NestedServletException.class,()->mockMvc.perform(get("/news").param("newsID","250")));
+    }
+    @Test
+    public void IT_TD_018_001_001_002() throws Exception {
+        ResultActions perform=mockMvc.perform(get("/news").param("newsID","16"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         perform.andExpect(status().isOk());
         assertModelAttributeAvailable(mv,"news");
-
     }
-
     @Test
-    public void return_news_list_page() throws Exception {
+    public void IT_TD_018_002_001_001() throws Exception {
         ResultActions perform=mockMvc.perform(get("/news/getNewsList").param("page","1"));
         perform.andExpect(status().isOk());
 
     }
 
     @Test
-    public void return_news_list_html() throws Exception {
-        ResultActions perform=mockMvc.perform(get("/news_list").param("newsID","1"));
+    public void IT_TD_018_003_001_001() throws Exception {
+        ResultActions perform=mockMvc.perform(get("/news_list"));
         MvcResult mvcResult=perform.andReturn();
         ModelAndView mv=mvcResult.getModelAndView();
         perform.andExpect(status().isOk());

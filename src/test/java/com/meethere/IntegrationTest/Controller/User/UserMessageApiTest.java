@@ -42,12 +42,12 @@ public class UserMessageApiTest {
     @Autowired
     private MockMvc mockMvc;
     @Test
-    public void fail_return_message_list_html_when_user_not_login() throws Exception {
+    public void IT_TD_016_001_001_001() throws Exception {
         assertThrows(NestedServletException.class,()->mockMvc.perform(get("/message_list")),"请登录！");
     }
 
     @Test
-    public void success_return_message_list_html_when_user_login() throws Exception {
+    public void IT_TD_016_001_001_002() throws Exception {
         int id=1;
         String userID="user";
         String password="password";
@@ -67,15 +67,15 @@ public class UserMessageApiTest {
     }
 
     @Test
-    public void return_pass_message_list()throws Exception {
+    public void IT_TD_016_002_001_001()throws Exception {
         ResultActions perform=mockMvc.perform(get("/message/getMessageList"));
         perform.andExpect(status().isOk());
 
     }
 
     @Test
-    public void success_return_user_message_list_when_user_login() throws Exception{
-        String userID="user";
+    public void IT_TD_016_003_001_001() throws Exception{
+        String userID="test";
         String password="password";
         String email="222@qq.com";
         String phone="12345678901";
@@ -83,35 +83,43 @@ public class UserMessageApiTest {
         String user_name="nickname";
         String picture="picture";
         User user=new User(1,userID,user_name,password,email,phone,isadmin,picture);
-
         ResultActions perform=mockMvc.perform(get("/message/findUserList").sessionAttr("user",user));
         perform.andExpect(status().isOk());
-
     }
 
     @Test
-    public void fail_return_user_message_list_when_user_not_login() throws Exception{
+    public void IT_TD_016_003_001_002() throws Exception{
         assertThrows(NestedServletException.class,()->mockMvc.perform(get("/message/findUserList")),"请登录！");
     }
 
     @Test
-    public void user_add_new_message()throws Exception {
+    public void IT_TD_016_004_001_001()throws Exception {
         ResultActions perform=mockMvc.perform(post("/sendMessage").param("userID","test").param("content","this is content"));
         perform.andExpect(redirectedUrl("/message_list"));
     }
-
-
     @Test
-    public void user_modify_message()throws Exception {
-        ResultActions perform=mockMvc.perform(post("/modifyMessage.do").param("messageID","2").param("userID","user").param("content","this is content"));
+    public void IT_TD_016_004_001_002()throws Exception {
+        ResultActions perform=mockMvc.perform(post("/sendMessage").param("userID","wrong").param("content","this is content"));
+        perform.andExpect(redirectedUrl("/error"));
+    }
+    @Test
+    public void IT_TD_016_005_001_001()throws Exception {
+        ResultActions perform=mockMvc.perform(post("/modifyMessage.do").param("messageID","26").param("userID","user").param("content","this is content"));
         perform.andExpect(content().string("true"));
     }
-
     @Test
-    public void user_del_message()throws Exception {
-        ResultActions perform=mockMvc.perform(post("/delMessage.do").param("messageID","2"));
+    public void IT_TD_016_005_001_002()throws Exception {
+        ResultActions perform=mockMvc.perform(post("/modifyMessage.do").param("messageID","250").param("userID","user").param("content","this is content"));
+        perform.andExpect(content().string("false"));
+    }
+    @Test
+    public void IT_TD_016_006_001_001()throws Exception {
+        ResultActions perform=mockMvc.perform(post("/delMessage.do").param("messageID","26"));
         perform.andExpect(content().string("true"));
-
-
+    }
+    @Test
+    public void IT_TD_016_006_001_002()throws Exception {
+        ResultActions perform=mockMvc.perform(post("/delMessage.do").param("messageID","250"));
+        perform.andExpect(content().string("false"));
     }
 }

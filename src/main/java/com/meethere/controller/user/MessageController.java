@@ -6,6 +6,7 @@ import com.meethere.entity.vo.MessageVo;
 import com.meethere.service.MessageService;
 import com.meethere.service.MessageVoService;
 import com.meethere.exception.LoginException;
+import com.meethere.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +28,8 @@ public class MessageController {
     private MessageService messageService;
     @Autowired
     private MessageVoService messageVoService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/message_list")
     public String message_list(Model model,HttpServletRequest request)throws Exception{
@@ -84,30 +87,44 @@ public class MessageController {
     public void sendMessage(String userID, String content, HttpServletResponse response) throws IOException {
         Message message=new Message();
         message.setUserID(userID);
-        message.setContent(content);
-        message.setState(1);
-        message.setTime(LocalDateTime.now());
-        messageService.create(message);
-        response.sendRedirect("/message_list");
+        User user=userService.findByUserID(userID);
+        if(user==null)
+            response.sendRedirect("/error");
+        else {
+            message.setContent(content);
+            message.setState(1);
+            message.setTime(LocalDateTime.now());
+            messageService.create(message);
+            response.sendRedirect("/message_list");
+        }
     }
 
     @PostMapping("/modifyMessage.do")
     @ResponseBody
     public boolean modifyMessage(int messageID,String content, HttpServletResponse response) throws IOException {
-        Message message=messageService.findById(messageID);
-        message.setContent(content);
-        message.setTime(LocalDateTime.now());
-        message.setState(1);
-        messageService.update(message);
-        return true;
+        try {
+            Message message = messageService.findById(messageID);
+            message.setContent(content);
+            message.setTime(LocalDateTime.now());
+            message.setState(1);
+            messageService.update(message);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     @PostMapping("/delMessage.do")
     @ResponseBody
     public boolean delMessage(int messageID)
     {
-        messageService.delById(messageID);
-        return true;
+        try {
+            Message message = messageService.findById(messageID);
+            messageService.delById(messageID);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
 }

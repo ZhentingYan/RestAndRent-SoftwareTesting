@@ -135,7 +135,6 @@ public class AdminUserApiTest {
     public void IT_TD_012_007_001_002() throws Exception {
         ResultActions perform=mockMvc.perform(post("/checkUserID.do").param("userID","wrong"));
         perform.andExpect(status().isOk()).andExpect(content().string("true"));
-
     }
 
     @Test

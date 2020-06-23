@@ -22,9 +22,10 @@ public class NewsController {
 
     @GetMapping("/news")
     public String news(Model model,int newsID){
-        News news= newsService.findById(newsID);
-        model.addAttribute("news",news);
-        return "news";
+
+            News news = newsService.findById(newsID);
+            model.addAttribute("news", news);
+            return "news";
     }
 
     @GetMapping("/news/getNewsList")

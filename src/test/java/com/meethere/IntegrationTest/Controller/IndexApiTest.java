@@ -89,5 +89,17 @@ public class IndexApiTest {
                 ()->assertModelAttributeAvailable(mv,"message_list"));
 
     }
+    @Test
+    public void IT_TD_008_001_001_002() throws Exception {
+        ResultActions perform=mockMvc.perform(get("/"));
+        perform.andExpect(status().isOk());
 
+        MvcResult mvcResult=perform.andReturn();
+        ModelAndView mv=mvcResult.getModelAndView();
+        assertAll("",()-> assertModelAttributeAvailable(mv,"user"),
+                ()-> assertModelAttributeAvailable(mv,"news_list"),
+                ()->assertModelAttributeAvailable(mv,"venue_list"),
+                ()->assertModelAttributeAvailable(mv,"message_list"));
+
+    }
 }

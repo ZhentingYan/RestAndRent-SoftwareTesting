@@ -168,12 +168,6 @@ public class NewsServiceTest {
                 () -> newsService.findById(id).toString());
     }
 
-    @Test
-    void return_news_by_newsID() {
-        int id = 999;
-        News res = newsService.findById(id);
-        assertEquals(id, res.getNewsID());
-    }
 
     @Test
     public void IT_TD_003_004_001_001() {
@@ -186,13 +180,4 @@ public class NewsServiceTest {
                 () -> newsService.delById(250));
     }
 
-    @Test
-    void update_news() {
-        int id = 1;
-        String title = "title";
-        String content = "this is content";
-        LocalDateTime ldt = LocalDateTime.now();
-        News news = new News(id, title, content, ldt);
-        newsService.update(news);
-    }
 }

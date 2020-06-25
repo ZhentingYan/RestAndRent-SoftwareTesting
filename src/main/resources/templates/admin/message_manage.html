@@ -37,7 +37,7 @@
         <div th:include="layout/left :: left(user=${session.admin},flag=${session.admin}!=null,page='message_manage')"></div>
         <main class="col-10 ml-auto px-4 mt-4">
             <div class="col-12 mb-3 pb-3 border-bottom border-gray">
-                <h2>留言审核</h2>
+                <h2>故事审核</h2>
             </div>
             <div class="bg-white">
                 <ul class="list-group pt-2 px-3" id="content">
@@ -125,12 +125,12 @@
                 '                    </li>\n';
         }
         if(list.length == 0){
-            tableShow += '<div class="text-center">没有需要审核的留言</div>';
+            tableShow += '<div class="text-center">没有需要审核的故事</div>';
         }
         $('#content').html(tableShow);
     }
     function pass(messageID,btn) {
-        if (!confirm("确定通过留言？")) {
+        if (!confirm("确定通过故事？")) {
             return;
         }
 
@@ -152,7 +152,7 @@
         });
     }
     function reject(messageID,btn) {
-        if (!confirm("确定驳回留言？")) {
+        if (!confirm("确定驳回故事？")) {
             return;
         }
 

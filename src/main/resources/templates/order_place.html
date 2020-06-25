@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>场馆预约-Rest&Rent</title>
+    <title>空间预约-Rest&Rent</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{css/open-iconic-bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{css/animate.css}">
@@ -94,10 +94,10 @@
     <form role="form" th:action="@{addOrder.do}" th:method="post">
         <div class="form-group mx-auto col-6 mb-4 row">
             <div class="media col-3 pr-0">
-                <h5 class="align-self-center">场馆名称：</h5>
+                <h5 class="align-self-center">空间名称：</h5>
             </div>
             <div class="col-9 pl-0">
-                <label for="venueName" class="sr-only">场馆名称</label>
+                <label for="venueName" class="sr-only">空间名称</label>
                 <input type="text" name="venueName" class="form-control form-control-lg" id="venueName"
                        th:value="${venue} != null?${venue.venueName}:''" required onchange="doVerify()"
                        data-toggle="tooltip" title="最多32个字符" data-placement="right" data-trigger="manual">
@@ -105,7 +105,7 @@
         </div>
         <div class="col-3" style="margin-left: 36%">
             <div class="alert alert-danger m-3 mb-4" hidden id="alertVenue">
-                <span class="glyphicon glyphicon-info-sign"></span> 场馆不存在！</div>
+                <span class="glyphicon glyphicon-info-sign"></span> 空间不存在！</div>
         </div>
         <div class="form-group mx-auto col-6 mb-4 row">
             <div class="media col-3 pr-0">
@@ -369,7 +369,7 @@
             },
             success: function(msg){
                 if(msg) {
-                    // 场馆不存在
+                    // 空间不存在
                     $("#submit").attr('disabled',true);
                     $("#alertVenue").removeAttr('hidden');
                 }

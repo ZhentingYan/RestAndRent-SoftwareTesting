@@ -35,7 +35,6 @@ public class MessageController {
     public String message_list(Model model,HttpServletRequest request)throws Exception{
         Pageable message_pageable= PageRequest.of(0,5, Sort.by("time").descending());
         Page<Message> messages=messageService.findPassState(message_pageable);
-        List<MessageVo> message_list=messageVoService.returnVo(messages.getContent());
 
         model.addAttribute("total",messages.getTotalPages());
 

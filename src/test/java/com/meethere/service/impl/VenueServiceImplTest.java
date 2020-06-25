@@ -135,7 +135,6 @@ class VenueServiceImplTest {
         String open_time="08:00";
         String close_time="18:00";
         Venue venue=new Venue(venueID,venue_name,description,price,picture,address,open_time,close_time);
-
         when(venueDao.save(any())).thenReturn(null);
         venueService.update(any());
         verify(venueDao).save(any());

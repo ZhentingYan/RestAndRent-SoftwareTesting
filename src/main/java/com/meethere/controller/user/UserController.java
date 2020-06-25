@@ -71,7 +71,7 @@ public class UserController {
     @PostMapping("/register.do")
     public void register(String userID,String userName, String password, String email, String phone,
                          HttpServletResponse response) throws IOException{
-        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && password!="" && userName!=""))
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!userID.equals("")) && (!password.equals("")) && (!userName.equals(""))))
             throw new RuntimeException("用户参数不符合规范！");
         User user=new User();
         user.setUserID(userID);

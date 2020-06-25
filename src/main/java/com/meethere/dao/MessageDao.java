@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public interface MessageDao extends JpaRepository<Message,Integer> {
     Message findByMessageID(int messageID);
 

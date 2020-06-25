@@ -35,8 +35,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> findDateOrder(int venueID, LocalDateTime startTime, LocalDateTime startTime2) {
-        if(!startTime2.isAfter((startTime)))
+        if(!startTime2.isAfter((startTime))) {
             throw new RuntimeException("查询订单起止时间异常！");
+        }
         return orderDao.findByVenueIDAndStartTimeIsBetween(venueID,startTime,startTime2);
     }
 
@@ -50,15 +51,19 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(int orderID, String venueName, LocalDateTime startTime, int hours,String userID)  {
         Venue venue =venueDao.findByVenueName(venueName);
         User user=userDao.findByUserID(userID);
-        if(user==null)
+        if(user==null) {
             throw new RuntimeException("userID不存在！");
-        if(!startTime.isAfter(LocalDateTime.now()))
+        }
+        if(!startTime.isAfter(LocalDateTime.now())) {
             throw new RuntimeException("开始时间小于当前时间！");
-        if(venue==null)
+        }
+        if(venue==null) {
             throw new RuntimeException("venueName不存在！");
+        }
         Order order=orderDao.findByOrderID(orderID);
-        if(order==null)
+        if(order==null) {
             throw new RuntimeException("order不存在！");
+        }
         order.setState(STATE_NO_AUDIT);
         order.setHours(hours);
         order.setVenueID(venue.getVenueID());
@@ -73,12 +78,15 @@ public class OrderServiceImpl implements OrderService {
     public int submit(String venueName, LocalDateTime startTime, int hours, String userID) {
         Venue venue =venueDao.findByVenueName(venueName);
         User user=userDao.findByUserID(userID);
-        if(user==null)
+        if(user==null) {
             throw new RuntimeException("userID不存在！");
-        if(!startTime.isAfter(LocalDateTime.now()))
+        }
+        if(!startTime.isAfter(LocalDateTime.now())) {
             throw new RuntimeException("开始时间小于当前时间！");
-        if(venue==null)
+        }
+        if(venue==null) {
             throw new RuntimeException("venueName不存在！");
+        }
         Order order=new Order();
         order.setState(STATE_NO_AUDIT);
         order.setHours(hours);

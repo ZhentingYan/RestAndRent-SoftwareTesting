@@ -87,9 +87,11 @@ public class IndexController {
         if(user==null && admin==null){
             return "login";
         }else{
-            if(user!=null)
+            if(user!=null) {
                 return "index";
-            else return "admin/admin_index";
+            } else {
+                return "admin/admin_index";
+            }
         }
     }
 

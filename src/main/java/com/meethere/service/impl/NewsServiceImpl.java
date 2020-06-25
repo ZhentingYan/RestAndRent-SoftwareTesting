@@ -21,8 +21,9 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public News findById(int newsID) {
         News news=newsDao.getOne(newsID);
-        if(news==null)
+        if(news==null) {
             throw new RuntimeException("newsID不存在！");
+        }
         return newsDao.getOne(newsID);
     }
 

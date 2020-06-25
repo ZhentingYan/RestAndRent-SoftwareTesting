@@ -33,8 +33,9 @@ public class UserController {
     @GetMapping("/signup")
     public String signUp(HttpServletRequest request){
         Object user=request.getSession().getAttribute("user");
-        if(user==null)
+        if(user==null) {
             return "signup";
+        }
         return "index";
     }
 
@@ -42,11 +43,13 @@ public class UserController {
     public String login(HttpServletRequest request){
         Object user=request.getSession().getAttribute("user");
         Object admin=request.getSession().getAttribute("admin");
-        if(user==null && admin!=null)
+        if(user==null && admin!=null) {
             return "admin/admin_index";
-        else if(admin==null && user!=null)
+        } else if(admin==null && user!=null) {
             return "index";
-        else return "login";
+        } else {
+            return "login";
+        }
     }
 
     @PostMapping("/loginCheck.do")
@@ -71,8 +74,9 @@ public class UserController {
     @PostMapping("/register.do")
     public void register(String userID,String userName, String password, String email, String phone,
                          HttpServletResponse response) throws IOException{
-        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!userID.equals("")) && (!password.equals("")) && (!userName.equals(""))))
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!"".equals(userID)) && (!"".equals(password)) && (!"".equals(userName)))) {
             throw new RuntimeException("用户参数不符合规范！");
+        }
         User user=new User();
         user.setUserID(userID);
         user.setUserName(userName);
@@ -101,8 +105,9 @@ public class UserController {
 
     @PostMapping("/updateUser.do")
     public void updateUser(String userName, String userID, String passwordNew,String email, String phone, MultipartFile picture,HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && userName!=""))
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && userID!="" && userName!="")) {
             throw new RuntimeException("用户参数不符合规范！");
+        }
         User user=userService.findByUserID(userID);
         user.setUserName(userName);
         if(passwordNew!=null&& !"".equals(passwordNew)){
@@ -126,16 +131,19 @@ public class UserController {
     public boolean checkPassword(String userID,String password)
     {
         User user=userService.findByUserID(userID);
-        if(user!=null)
-        return user.getPassword().equals(password);
-        else return false;
+        if(user!=null) {
+            return user.getPassword().equals(password);
+        } else {
+            return false;
+        }
     }
 
     @GetMapping("/user_info")
     public String user_info(Model model,HttpServletRequest request){
         Object user=request.getSession().getAttribute("user");
-        if(user==null)
+        if(user==null) {
             return "login";
+        }
         return "user_info";
     }
 }

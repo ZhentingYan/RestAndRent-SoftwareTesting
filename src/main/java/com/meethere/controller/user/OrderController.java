@@ -50,8 +50,9 @@ public class OrderController {
     @GetMapping("/order_place.do")
     public String order_place(Model model,int venueID) {
         Venue venue=venueService.findByVenueID(venueID);
-        if(venue==null)
+        if(venue==null) {
             throw new RuntimeException("venueID不存在！");
+        }
         model.addAttribute("venue",venue);
         return "order_place";
     }
@@ -79,8 +80,9 @@ public class OrderController {
         date=startTime+":00";
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(date,df);
-        if(!ldt.isAfter(LocalDateTime.now()))
+        if(!ldt.isAfter(LocalDateTime.now())) {
             throw new RuntimeException("订单开始日期异常！");
+        }
         Object user=request.getSession().getAttribute("user");
         if(user==null) {
             throw new LoginException("请登录！");
@@ -115,8 +117,9 @@ public class OrderController {
         date=startTime+":00";
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime ldt = LocalDateTime.parse(date,df);
-        if(!ldt.isAfter(LocalDateTime.now()))
+        if(!ldt.isAfter(LocalDateTime.now())) {
             throw new RuntimeException("订单开始日期异常！");
+        }
         Object user=request.getSession().getAttribute("user");
         if(user==null) {
             throw new LoginException("请登录！");
@@ -138,8 +141,9 @@ public class OrderController {
     @ResponseBody
     public VenueOrder getOrder(String venueName,String date){
         Venue venue=venueService.findByVenueName(venueName);
-        if(venue==null)
+        if(venue==null) {
             throw new RuntimeException("venueName不存在！");
+        }
         VenueOrder venueOrder=new VenueOrder();
         date=date+" 00:00:00";
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

@@ -65,8 +65,9 @@ public class AdminUserController {
     @GetMapping("/user_edit")
     public String user_edit(Model model,int id){
         User user=userService.findById(id);
-        if(user==null)
+        if(user==null) {
             throw new RuntimeException("用户ID不存在！");
+        }
         model.addAttribute("user",user);
         return "admin/user_edit";
     }
@@ -74,8 +75,9 @@ public class AdminUserController {
     @PostMapping("/modifyUser.do")
     public void modifyUser(String userID,String oldUserID,String userName, String password, String email, String phone,
                         HttpServletRequest request, HttpServletResponse response) throws IOException{
-        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!userID.equals("")) && (!password.equals("")) && (!userName.equals(""))))
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!"".equals(userID)) && (!"".equals(password)) && (!"".equals(userName)))) {
             throw new RuntimeException("用户参数不符合规范！");
+        }
         User user=userService.findByUserID(oldUserID);
         user.setUserID(userID);
         user.setUserName(userName);
@@ -89,8 +91,9 @@ public class AdminUserController {
     @PostMapping("/addUser.do")
     public void addUser(String userID,String userName, String password, String email, String phone,
                         HttpServletRequest request, HttpServletResponse response) throws IOException{
-        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!userID.equals("")) && (!password.equals("")) && (!userName.equals(""))))
+        if(!(Pattern.matches(REGEX_EMAIL,email) && Pattern.matches(REGEX_MOBILE,phone) && (!"".equals(userID)) && (!"".equals(password)) && (!"".equals(userName)))) {
             throw new RuntimeException("用户参数不符合规范！");
+        }
         User user=new User();
         user.setUserID(userID);
         user.setUserName(userName);

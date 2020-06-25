@@ -87,9 +87,9 @@ public class MessageController {
         Message message=new Message();
         message.setUserID(userID);
         User user=userService.findByUserID(userID);
-        if(user==null)
+        if(user==null) {
             response.sendRedirect("/error");
-        else {
+        } else {
             message.setContent(content);
             message.setState(1);
             message.setTime(LocalDateTime.now());

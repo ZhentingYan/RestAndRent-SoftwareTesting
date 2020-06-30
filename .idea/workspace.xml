@@ -343,14 +343,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="localRepository" value="D:\MavenRepo\repository" />
-        <option name="userSettingsFile" value="D:\MavenRepo\settings.xml" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1dReT8s7fOJIpW6TP3v3aPxFpkG" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -384,75 +376,62 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NewsServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AdminMessageControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="meethere" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.meethere.IntegrationTest.Service.*" />
-          <option name="ENABLED" value="false" />
-        </pattern>
-        <pattern>
-          <option name="PATTERN" value="com.meethere.service.impl.NewsServiceImpl" />
+          <option name="PATTERN" value="com.meethere.controller.admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Service" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Service.NewsServiceTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="meethere" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.meethere.IntegrationTest.Service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Service" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Service.OrderServiceTest" />
+      <option name="PACKAGE_NAME" value="com.meethere.controller.admin" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.controller.admin.AdminMessageControllerTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="AdminOrderApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="meethere" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.meethere.IntegrationTest.Service.*" />
-          <option name="ENABLED" value="false" />
-        </pattern>
-        <pattern>
-          <option name="PATTERN" value="com.meethere.service.impl.UserServiceImpl" />
+          <option name="PATTERN" value="com.meethere.IntegrationTest.Controller.Admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Service" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Service.UserServiceTest" />
-      <option name="METHOD_NAME" value="" />
+      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Controller.Admin" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Controller.Admin.AdminOrderApiTest" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="PARAMETERS" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserServiceTest.del_user_by_id" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IndexApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="meethere" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.meethere.IntegrationTest.Service.*" />
+          <option name="PATTERN" value="com.meethere.IntegrationTest.Controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Service" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Service.UserServiceTest" />
-      <option name="METHOD_NAME" value="del_user_by_id" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Controller" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Controller.IndexApiTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="meethere" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.meethere.IntegrationTest.Controller.User.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Controller.User" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Controller.User.UserApiTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -467,34 +446,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MeetHereApplication" />
-        <item itemvalue="JUnit.OrderServiceTest" />
-        <item itemvalue="JUnit.NewsServiceTest" />
-        <item itemvalue="JUnit.UserServiceTest" />
-        <item itemvalue="JUnit.UserServiceTest.del_user_by_id" />
+        <item itemvalue="JUnit.AdminOrderApiTest" />
+        <item itemvalue="JUnit.UserApiTest" />
+        <item itemvalue="JUnit.IndexApiTest" />
+        <item itemvalue="JUnit.AdminMessageControllerTest" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:meethere_db@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:meethere_db@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="com.intellij.database.console.session.MessageBusSession@4119221b" type="9fbbdea:ServiceModel$ServiceNode" />
-              </path>
-            </expand>
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -519,13 +476,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="347" y="26" key="#NewsServiceTest" timestamp="1592664350821">
@@ -556,39 +512,39 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="498" y="201" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1592664343754" />
-    <state x="527" y="198" key="FileChooserDialogImpl" timestamp="1593340013330">
-      <screen x="0" y="0" width="1469" height="864" />
+    <state x="551" y="189" key="FileChooserDialogImpl" timestamp="1593492765047">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="527" y="198" key="FileChooserDialogImpl/0.0.1469.864@0.0.1469.864" timestamp="1593340013330" />
-    <state x="551" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592564295738" />
-    <state width="1428" height="254" key="GridCell.Tab.0.bottom" timestamp="1593450026633">
-      <screen x="0" y="0" width="1470" height="864" />
+    <state x="551" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1593492765047" />
+    <state width="1493" height="55" key="GridCell.Tab.0.bottom" timestamp="1593494814783">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.bottom/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.bottom/0.0.1469.864@0.0.1469.864" timestamp="1593342064767" />
     <state width="1428" height="254" key="GridCell.Tab.0.bottom/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1122" height="333" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1593079864262" />
-    <state width="1428" height="254" key="GridCell.Tab.0.center" timestamp="1593450026633">
-      <screen x="0" y="0" width="1470" height="864" />
+    <state width="1493" height="55" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
+    <state width="1493" height="55" key="GridCell.Tab.0.center" timestamp="1593494814783">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.center/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.center/0.0.1469.864@0.0.1469.864" timestamp="1593342064767" />
     <state width="1428" height="254" key="GridCell.Tab.0.center/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1122" height="333" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1593079864262" />
-    <state width="1428" height="254" key="GridCell.Tab.0.left" timestamp="1593450026633">
-      <screen x="0" y="0" width="1470" height="864" />
+    <state width="1493" height="55" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
+    <state width="1493" height="55" key="GridCell.Tab.0.left" timestamp="1593494814783">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.left/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.left/0.0.1469.864@0.0.1469.864" timestamp="1593342064766" />
     <state width="1428" height="254" key="GridCell.Tab.0.left/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1122" height="333" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1593079864262" />
-    <state width="1428" height="254" key="GridCell.Tab.0.right" timestamp="1593450026633">
-      <screen x="0" y="0" width="1470" height="864" />
+    <state width="1493" height="55" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
+    <state width="1493" height="55" key="GridCell.Tab.0.right" timestamp="1593494814783">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.right/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.right/0.0.1469.864@0.0.1469.864" timestamp="1593342064767" />
     <state width="1428" height="254" key="GridCell.Tab.0.right/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1122" height="333" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1593079864262" />
+    <state width="1493" height="55" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
     <state width="671" height="238" key="GridCell.Tab.1.bottom" timestamp="1592632840107">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -605,12 +561,12 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="671" height="238" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1592632840107" />
-    <state x="254" y="78" key="SettingsEditor" timestamp="1593340018653">
-      <screen x="0" y="0" width="1469" height="864" />
+    <state x="18" y="0" key="SettingsEditor" timestamp="1593492773546">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="15" y="0" key="SettingsEditor/0.0.1280.912@0.0.1280.912" timestamp="1592394884983" />
     <state x="254" y="78" key="SettingsEditor/0.0.1469.864@0.0.1469.864" timestamp="1593340018653" />
-    <state x="18" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1592568608981" />
+    <state x="18" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1593492773546" />
     <state x="416" y="256" key="com.intellij.ide.util.TipDialog" timestamp="1593392849406">
       <screen x="0" y="0" width="1470" height="864" />
     </state>
@@ -625,11 +581,11 @@
     <state x="145" y="146" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1592650699249" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/meethere$NewsServiceTest.ic" NAME="NewsServiceTest Coverage Results" MODIFIED="1592664353009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.meethere.service.impl.NewsServiceImpl</FILTER>
-    </SUITE>
     <SUITE FILE_PATH="coverage/meethere$UserServiceTest.ic" NAME="UserServiceTest Coverage Results" MODIFIED="1592664268184" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.meethere.service.impl.UserServiceImpl</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/meethere$NewsServiceTest.ic" NAME="NewsServiceTest Coverage Results" MODIFIED="1592664353009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.meethere.service.impl.NewsServiceImpl</FILTER>
     </SUITE>
   </component>
 </project>

@@ -62,6 +62,9 @@ public class AdminNewsController {
 
     @PostMapping("/modifyNews.do")
     public void modifyNews(int newsID,String title,String content,HttpServletResponse response) throws IOException {
+        if("".equals(title) || "".equals(content) || title.length()>100 || content.length()>5000) {
+            throw new RuntimeException("修改公告参数不合法！");
+        }
         News news= newsService.findById(newsID);
         news.setTitle(title);
         news.setContent(content);

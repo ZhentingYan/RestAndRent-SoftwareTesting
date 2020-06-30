@@ -31,4 +31,5 @@ public class User {
     private int isadmin;
 
     private String picture;
+
 }

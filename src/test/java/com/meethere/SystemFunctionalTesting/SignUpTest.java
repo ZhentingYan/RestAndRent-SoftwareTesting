@@ -15,7 +15,7 @@ public class SignUpTest extends BaseTest {
 
   @Test
   @Order(1)
-  public void signUp_success() {
+  public void signUp_success_without_phone_and_email() {
     driver.get("http://localhost:8888/index");
     assertThat(driver.getTitle(), is("MeetHere"));
     driver.findElement(By.linkText("注册")).click();
@@ -34,7 +34,7 @@ public class SignUpTest extends BaseTest {
 
   @Test
   @Order(2)
-  public void signUp_success_with_email() {
+  public void signUp_success_without_phone() {
     driver.get("http://localhost:8888/index");
     assertThat(driver.getTitle(), is("MeetHere"));
     driver.findElement(By.linkText("注册")).click();
@@ -55,7 +55,7 @@ public class SignUpTest extends BaseTest {
 
   @Test
   @Order(3)
-  public void signUp_success_with_phone() {
+  public void signUp_success_without_email() {
     driver.get("http://localhost:8888/index");
     assertThat(driver.getTitle(), is("MeetHere"));
     driver.findElement(By.linkText("注册")).click();

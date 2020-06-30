@@ -17,9 +17,9 @@ public class SignUpTest extends BaseTest {
   @Order(1)
   public void signUp_success_without_phone_and_email() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("主页-Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
     driver.findElement(By.id("userID")).click();
@@ -27,60 +27,19 @@ public class SignUpTest extends BaseTest {
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("1234");
     driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("登录-MeetHere"));
+    assertThat(driver.getTitle(), is("登录-Rest&Rent"));
     driver.close();
   }
 
 
-  @Test
-  @Order(2)
-  public void signUp_success_without_phone() {
-    driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
-    driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
-    driver.findElement(By.id("userName")).click();
-    driver.findElement(By.id("userName")).sendKeys("testUser");
-    driver.findElement(By.id("email")).click();
-    driver.findElement(By.id("email")).sendKeys("707864430@qq.com");
-    driver.findElement(By.id("userID")).click();
-    driver.findElement(By.id("userID")).sendKeys("test002");
-    driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).sendKeys("1234");
-    driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("登录-MeetHere"));
-    driver.close();
-  }
-
 
   @Test
-  @Order(3)
-  public void signUp_success_without_email() {
+  public void test_RR_ST_TC_002_002_2() throws InterruptedException {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("主页-Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
-    driver.findElement(By.id("userName")).click();
-    driver.findElement(By.id("userName")).sendKeys("testUser");
-    driver.findElement(By.id("phone")).click();
-    driver.findElement(By.id("phone")).sendKeys("13918826786");
-    driver.findElement(By.id("userID")).click();
-    driver.findElement(By.id("userID")).sendKeys("test003");
-    driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).sendKeys("1234");
-    driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("登录-MeetHere"));
-    driver.close();
-  }
-
-
-  @Test
-  @Order(4)
-  public void signUp_success_with_email_and_phone() {
-    driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
-    driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
+    Thread.sleep(1000);
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
     driver.findElement(By.id("email")).click();
@@ -92,24 +51,29 @@ public class SignUpTest extends BaseTest {
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("1234");
     driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("登录-MeetHere"));
+    Thread.sleep(1000);
+    assertThat(driver.getTitle(), is("登录-Rest&Rent"));
     driver.close();
   }
 
 
   @Test
-  @Order(5)
-  public void signUp_fail_userId_exist() {
+  public void test_RR_ST_TC_002_002_1() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("主页-Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
+    driver.findElement(By.id("email")).click();
+    driver.findElement(By.id("email")).sendKeys("707864430@qq.com");
+    driver.findElement(By.id("phone")).click();
+    driver.findElement(By.id("phone")).sendKeys("13918826786");
     driver.findElement(By.id("userID")).click();
-    driver.findElement(By.id("userID")).sendKeys("admin");
+    driver.findElement(By.id("userID")).sendKeys("test004");
     driver.findElement(By.id("password")).click();
-    driver.findElement(By.id("password")).sendKeys("admin");
+    driver.findElement(By.id("password")).sendKeys("1234");
+    driver.findElement(By.id("submit")).click();
     assertThat(driver.findElement(By.id("alertId")).getText(), is("用户名已被占用，请重新输入！"));
     driver.close();
   }
@@ -119,15 +83,15 @@ public class SignUpTest extends BaseTest {
   @Order(6)
   public void signUp_fail_userId_is_null() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("1234");
     driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.close();
   }
 
@@ -136,15 +100,15 @@ public class SignUpTest extends BaseTest {
   @Order(7)
   public void signUp_fail_userName_is_null() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userID")).click();
     driver.findElement(By.id("userID")).sendKeys("test001");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("1234");
     driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.close();
   }
 
@@ -153,15 +117,15 @@ public class SignUpTest extends BaseTest {
   @Order(8)
   public void signUp_fail_password_is_null() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
     driver.findElement(By.id("userID")).click();
     driver.findElement(By.id("userID")).sendKeys("test001");
     driver.findElement(By.id("submit")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.close();
   }
 
@@ -170,9 +134,9 @@ public class SignUpTest extends BaseTest {
   @Order(9)
   public void signUp_fail_email_form_error() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
     driver.findElement(By.id("email")).click();
@@ -181,7 +145,7 @@ public class SignUpTest extends BaseTest {
     driver.findElement(By.id("userID")).sendKeys("test001");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("1234");
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     assertThat(driver.findElement(By.id("alertEmail")).getText(), is("请输入正确的邮箱！"));
     driver.close();
   }
@@ -191,9 +155,9 @@ public class SignUpTest extends BaseTest {
   @Order(10)
   public void signUp_fail_phone_form_error() {
     driver.get("http://localhost:8888/index");
-    assertThat(driver.getTitle(), is("MeetHere"));
+    assertThat(driver.getTitle(), is("Rest&Rent"));
     driver.findElement(By.linkText("注册")).click();
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     driver.findElement(By.id("userName")).click();
     driver.findElement(By.id("userName")).sendKeys("testUser");
     driver.findElement(By.id("phone")).click();
@@ -202,7 +166,7 @@ public class SignUpTest extends BaseTest {
     driver.findElement(By.id("userID")).sendKeys("test001");
     driver.findElement(By.id("password")).click();
     driver.findElement(By.id("password")).sendKeys("1234");
-    assertThat(driver.getTitle(), is("注册-MeetHere"));
+    assertThat(driver.getTitle(), is("注册-Rest&Rent"));
     assertThat(driver.findElement(By.id("alertPhone")).getText(), is("请输入正确的手机号！"));
     driver.close();
   }

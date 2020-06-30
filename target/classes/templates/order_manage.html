@@ -92,21 +92,72 @@
             }
         });
     }
+    //获取当前时间，格式YYYY-MM-DD
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+
+//比较日期大小
+function compareDate(date1, date2) {
+    var date1 = new Date(date1);
+    var date2 = new Date(date2);
+    if (date1.getTime() >= date2.getTime()) {
+        return true;
+    } else {
+        return false;
+    }
+}
     function appendHtml(list) {//此函数用于处理后台返回的数据，根据自己需求来实现页面拼接
         let tableShow = '';
         for (let i = 0; i < list.length; i++) {
+            var finishFlag=0;
             tableShow += '<li class="list-group-item px-3 border-0">\n' +
                 '                        <div class="d-flex mb-1">\n';
-            if(list[i].state == 3){
+            if(list[i].state == 4){
                 tableShow +='<div class="mr-auto">\n' +
                     '                                <small class="text-danger"><span class="glyphicon glyphicon-info-sign"></span>未通过</small>\n' +
                     '                            </div>\n';
+            }
+                        if(list[i].state == 3){
+                tableShow +='<div class="mr-auto">\n' +
+                    '                                <small class="text-success"><span class="glyphicon glyphicon-info-sign"></span>已完成</small>\n' +
+                    '                            </div>\n';
+            }
+            if(list[i].state == 2){
+                    var startTime=list[i].startTime.toString();
+                    var strDate = startTime.split(" ");
+                    var strDatepart = strDate[0].split("-");
+                    if(compareDate(getNowFormatDate(),strDatepart)){
+                                var finishFlag=1;
+
+                                    tableShow +='<div class="mr-auto">\n' +
+                    '                                <small class="text-success"><span class="glyphicon glyphicon-info-sign"></span>待完成订单</small>\n' +
+                    '                            </div>\n';
+                    }else{
+                                    tableShow +='<div class="mr-auto">\n' +
+                    '                                <small class="text-success"><span class="glyphicon glyphicon-info-sign"></span>待出行</small>\n' +
+                    '                            </div>\n';
+                    }
+
             }
             else if(list[i].state == 1){
                 tableShow += '<div class="mr-auto">\n' +
                     '                                <small class="text-warning"><span class="glyphicon glyphicon-info-sign"></span>审核中</small>\n' +
                     '                            </div>\n';
             }
+            if(finishFlag==0 && list[i].state !=3){
             tableShow +=
             '                    <div class="dropdown ml-auto">\n' +
                 '                        <a class="text-dark" href="#" data-toggle="dropdown">\n' +
@@ -146,6 +197,85 @@
                 '                        </div>\n' +
                 '                    </div>\n' +
                 '                </li>\n';
+                }else if(list[i].state == 3){
+                            tableShow +=
+                                 '                    <div class="dropdown ml-auto">\n' +
+                '                        <a class="text-dark" href="#" data-toggle="dropdown">\n' +
+                '                            <span class="glyphicon glyphicon-menu-down"></span>\n' +
+                '                        </a>\n' +
+                '                        <div class="dropdown-menu">\n' +
+                '                            <a class="dropdown-item" href="#" >订单已完成</a>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                    <div class="media border-bottom border-gray pb-3">\n' +
+                '                        <div class="media-left mr-3">\n';
+            // if(list[i].picture == '')
+            //     tableShow += '<img src="image.JPG" alt="" height="100px" width="100px">\n';
+            // else
+            //     tableShow += '<img src="'+list[i].picture+'" alt="" height="100px" width="100px">\n';
+            tableShow += '</div>\n' +
+                '                        <div class="media-body">\n' +
+                '                            <h6>\n' +
+                '                                <strong>预约空间：</strong>\n' +
+                '                                <a href="/venue?venueID='+list[i].venueID+'" target="_blank" >'+list[i].venueName+'</a>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">预约时间：</p>\n' +
+                '                                <p class="mb-0">'+list[i].startTime+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">预约时长：</p>\n' +
+                '                                <p class="mb-0">'+list[i].hours+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">支付租金：</p>\n' +
+                '                                <p class="mb-0">￥'+list[i].total+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <small class="float-right">'+list[i].orderTime+'</small>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </li>\n';
+                }else{
+                                            tableShow +=
+            '                    <div class="dropdown ml-auto">\n' +
+                '                        <a class="text-dark" href="#" data-toggle="dropdown">\n' +
+                '                            <span class="glyphicon glyphicon-menu-down"></span>\n' +
+                '                        </a>\n' +
+                '                        <div class="dropdown-menu">\n' +
+                '                            <a class="dropdown-item" href="#" onclick="finishOrder('+list[i].orderID+',this)">完成订单</a>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '                    <div class="media border-bottom border-gray pb-3">\n' +
+                '                        <div class="media-left mr-3">\n';
+            // if(list[i].picture == '')
+            //     tableShow += '<img src="image.JPG" alt="" height="100px" width="100px">\n';
+            // else
+            //     tableShow += '<img src="'+list[i].picture+'" alt="" height="100px" width="100px">\n';
+            tableShow += '</div>\n' +
+                '                        <div class="media-body">\n' +
+                '                            <h6>\n' +
+                '                                <strong>预约空间：</strong>\n' +
+                '                                <a href="/venue?venueID='+list[i].venueID+'" target="_blank" >'+list[i].venueName+'</a>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">预约时间：</p>\n' +
+                '                                <p class="mb-0">'+list[i].startTime+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">预约时长：</p>\n' +
+                '                                <p class="mb-0">'+list[i].hours+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <h6 class="d-flex">\n' +
+                '                                <p class="font-weight-bold mb-0">支付租金：</p>\n' +
+                '                                <p class="mb-0">￥'+list[i].total+'</p>\n' +
+                '                            </h6>\n' +
+                '                            <small class="float-right">'+list[i].orderTime+'</small>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </li>\n';
+                }
         }
         $('#content').html(tableShow);
     }
@@ -167,6 +297,28 @@
                 if (result) {
                     $(btn).parent().parent().parent().parent().fadeOut();
                     alert("删除成功！");
+                }
+            }
+        });
+    }
+        function finishOrder(orderID,btn) {
+        if (!confirm("确认完成订单？")) {
+            return;
+        }
+
+        $.ajax({
+            cache: true,
+            type: "POST",
+            url: "/finishOrder.do",
+            dataType: "Json",
+            data: {
+                orderID:orderID
+            },
+            async: false,
+            success: function (result) {
+                if (result) {
+                    $(btn).parent().parent().parent().parent().fadeOut();
+                    alert("订单完成！");
                 }
             }
         });

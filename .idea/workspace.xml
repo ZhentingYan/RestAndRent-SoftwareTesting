@@ -362,7 +362,7 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
-  <component name="RunManager" selected="Application.MeetHereApplication">
+  <component name="RunManager" selected="JUnit.OrderServiceTest.IT_TD_004_011_001_001">
     <configuration name="MeetHereApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.meethere.MeetHereApplication" />
       <module name="meethere" />
@@ -372,21 +372,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AdminMessageControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="meethere" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.meethere.controller.admin.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.meethere.controller.admin" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.controller.admin.AdminMessageControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -406,22 +391,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IndexApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="meethere" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.meethere.IntegrationTest.Controller.*" />
+          <option name="PATTERN" value="com.meethere.IntegrationTest.Service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Controller" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Controller.IndexApiTest" />
+      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Service.OrderServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrderServiceTest.IT_TD_004_011_001_001" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="meethere" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.meethere.IntegrationTest.Service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Service" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Service.OrderServiceTest" />
+      <option name="METHOD_NAME" value="IT_TD_004_011_001_001" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserOrderApiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="meethere" />
       <extension name="coverage">
         <pattern>
@@ -430,7 +431,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.meethere.IntegrationTest.Controller.User" />
-      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Controller.User.UserApiTest" />
+      <option name="MAIN_CLASS_NAME" value="com.meethere.IntegrationTest.Controller.User.UserOrderApiTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -445,11 +446,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.OrderServiceTest.IT_TD_004_011_001_001" />
+        <item itemvalue="JUnit.UserOrderApiTest" />
+        <item itemvalue="JUnit.OrderServiceTest" />
         <item itemvalue="Application.MeetHereApplication" />
         <item itemvalue="JUnit.AdminOrderApiTest" />
-        <item itemvalue="JUnit.UserApiTest" />
-        <item itemvalue="JUnit.IndexApiTest" />
-        <item itemvalue="JUnit.AdminMessageControllerTest" />
       </list>
     </recent_temporary>
   </component>
@@ -517,34 +518,34 @@
     </state>
     <state x="527" y="198" key="FileChooserDialogImpl/0.0.1469.864@0.0.1469.864" timestamp="1593340013330" />
     <state x="551" y="189" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1593492765047" />
-    <state width="1493" height="55" key="GridCell.Tab.0.bottom" timestamp="1593494814783">
+    <state width="1493" height="220" key="GridCell.Tab.0.bottom" timestamp="1593499414812">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.bottom/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.bottom/0.0.1469.864@0.0.1469.864" timestamp="1593342064767" />
     <state width="1428" height="254" key="GridCell.Tab.0.bottom/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1493" height="55" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
-    <state width="1493" height="55" key="GridCell.Tab.0.center" timestamp="1593494814783">
+    <state width="1493" height="220" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1593499414812" />
+    <state width="1493" height="220" key="GridCell.Tab.0.center" timestamp="1593499414812">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.center/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.center/0.0.1469.864@0.0.1469.864" timestamp="1593342064767" />
     <state width="1428" height="254" key="GridCell.Tab.0.center/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1493" height="55" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
-    <state width="1493" height="55" key="GridCell.Tab.0.left" timestamp="1593494814783">
+    <state width="1493" height="220" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1593499414812" />
+    <state width="1493" height="220" key="GridCell.Tab.0.left" timestamp="1593499414812">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.left/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.left/0.0.1469.864@0.0.1469.864" timestamp="1593342064766" />
     <state width="1428" height="254" key="GridCell.Tab.0.left/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1493" height="55" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
-    <state width="1493" height="55" key="GridCell.Tab.0.right" timestamp="1593494814783">
+    <state width="1493" height="220" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1593499414812" />
+    <state width="1493" height="220" key="GridCell.Tab.0.right" timestamp="1593499414812">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1224" height="219" key="GridCell.Tab.0.right/0.0.1280.912@0.0.1280.912" timestamp="1592406660496" />
     <state width="1426" height="94" key="GridCell.Tab.0.right/0.0.1469.864@0.0.1469.864" timestamp="1593342064767" />
     <state width="1428" height="254" key="GridCell.Tab.0.right/0.0.1470.864@0.0.1470.864" timestamp="1593450026633" />
-    <state width="1493" height="55" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1593494814783" />
+    <state width="1493" height="220" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1593499414812" />
     <state width="671" height="238" key="GridCell.Tab.1.bottom" timestamp="1592632840107">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

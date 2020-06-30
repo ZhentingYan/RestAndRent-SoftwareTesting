@@ -229,7 +229,7 @@ public class OrderServiceTest {
             else if(o.getState()==4)
                 assertEquals(4,o.getState());
             else{
-                assertEquals(2,o.getState());
+                assertEquals(3,o.getState());
             }
         }
     }

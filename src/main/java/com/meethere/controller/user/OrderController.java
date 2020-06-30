@@ -94,8 +94,9 @@ public class OrderController {
 
     @PostMapping("/finishOrder.do")
     @ResponseBody
-    public void finishOrder(int orderID) {
+    public boolean finishOrder(int orderID) {
         orderService.finishOrder(orderID);
+        return true;
     }
 
     @GetMapping("/modifyOrder.do")
